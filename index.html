@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savana Eventos - Em Breve</title>
+    
+    <!-- Meta Tags Essenciais para SEO -->
+    <meta name="description" content="Savana Eventos - Em breve, as melhores festas universitárias em Lavras, MG. Fique ligado para o lançamento dos ingressos!">
+    <meta name="keywords" content="eventos, festas, Lavras, universitário, Savana, balada, show, música, em breve">
+    <meta name="author" content="Savana Eventos">
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:title" content="Savana Eventos - Em Breve">
+    <meta property="og:description" content="As melhores e mais inesquecíveis festas universitárias em Lavras, MG. Em breve, a venda de ingressos será liberada!">
+    <meta property="og:image" content="https://iili.io/FCvz5DQ.png">
+    <meta property="og:url" content="URL_DO_SEU_SITE_AQUI">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Savana Eventos - Em Breve">
+    <meta name="twitter:description" content="As melhores e mais inesquecíveis festas universitárias em Lavras, MG. Em breve, a venda de ingressos será liberada!">
+    <meta name="twitter:image" content="https://iili.io/FCvz5DQ.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Favicon (mantido para carregamento inicial rápido e compatibilidade) -->
+    <link rel="icon" href="https://iili.io/FCvz5DQ.png" type="image/png">
+
+    <style>
+        /* Estilos base do corpo */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a; /* Fundo escuro */
+            color: #f0f0f0; /* Cor do texto principal */
+            display: flex;
+            flex-direction: column; /* Para empilhar logo e texto */
+            align-items: center; /* Centraliza horizontalmente */
+            min-height: 100vh; /* Ocupa a altura total da viewport */
+            margin: 0;
+        }
+
+        /* Cor principal da marca */
+        :root {
+            --cor-principal: #E711F0;
+        }
+
+        /* Animação para o texto principal */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animated-content {
+            animation: fadeInScale 1s ease-out forwards;
+        }
+
+        /* Fundo de partículas animado */
+        #tsparticles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Estilo para o temporizador */
+        .countdown-item {
+            background-color: rgba(231, 17, 240, 0.2); /* Fundo sutil */
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 0 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 65px;
+            box-shadow: 0 0 10px rgba(231, 17, 240, 0.3); /* Brilho */
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cor-principal);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+        /* Responsividade para o temporizador */
+        @media (min-width: 768px) {
+            .countdown-value {
+                font-size: 3rem;
+            }
+            .countdown-item {
+                min-width: 90px;
+                padding: 10px 15px;
+                margin: 0 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo de Partículas -->
+    <div id="tsparticles"></div>
+
+    <main class="text-center px-4 py-8">
+        <div class="animated-content flex flex-col items-center">
+            <!-- LOGO DA SAVANA - Ajustado mt para posicionamento mais no topo -->
+            <img src="https://iili.io/FCvz5DQ.png" alt="Logo Savana Eventos" class="h-24 md:h-32 lg:h-40 mx-auto mt-8 mb-8">
+            
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase mt-4" style="color: var(--cor-principal); text-shadow: 0px 0px 20px rgba(231, 17, 240, 0.6);">
+                EM BREVE
+            </h1>
+            <p class="text-4xl md:text-5xl font-semibold text-white mt-4 mb-8">
+                SETEMBRO 2025
+            </p>
+
+            <!-- Texto acima do temporizador - Estilo ajustado para ser menos destacado -->
+            <p id="countdown-message" class="text-base md:text-lg text-gray-400 font-normal mt-8 mb-4">
+                Prepare-se! As vendas começam em:
+            </p>
+            <!-- --- Temporizador de Contagem Regressiva --- -->
+            <div id="countdown" class="flex justify-center items-center mb-8">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-value">00</span>
+                    <span class="countdown-label">Dias</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-value">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-value">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-value">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+            <!-- --------------------------------------- -->
+            
+        </div>
+    </main>
+
+    <!-- Scripts JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializa as partículas animadas
+            tsParticles.load("tsparticles", {
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 40, density: { enable: true, value_area: 800 }},
+                    color: { value: "#E711F0" }, // Cor das partículas
+                    shape: { type: "circle" },
+                    opacity: {
+                        value: 0.4,
+                        random: true,
+                        anim: { enable: true, speed: 0.5, opacity_min: 0.05, sync: false }
+                    },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#E711F0", // Cor das linhas entre partículas
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: { onhover: { enable: true, mode: "grab" }, resize: true },
+                    modes: { grab: { distance: 140, line_opacity: 0.5 } }
+                },
+                retina_detect: true,
+            });
+
+            // Lógica do Temporizador
+            const countdownDate = new Date("August 1, 2025 00:00:00").getTime(); // 1º de Agosto de 2025
+
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                // Cálculos para dias, horas, minutos e segundos
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Atualiza os elementos HTML
+                document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+                document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+
+                // Se a contagem regressiva terminou
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown").innerHTML = "<p class='text-2xl font-bold text-white mt-4'>VENDAS LIBERADAS!</p>";
+                    // Esconde o texto "Prepare-se!" quando o temporizador termina
+                    document.getElementById("countdown-message").style.display = 'none';
+                }
+            };
+
+            // Atualiza a contagem regressiva a cada 1 segundo
+            const countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Chama a função uma vez imediatamente para evitar atraso no primeiro display
+            updateCountdown();
+
+            // Adiciona o favicon via JavaScript
+            const setFavicon = (url) => {
+                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/png';
+                link.rel = 'shortcut icon';
+                link.href = url;
+                document.getElementsByTagName('head')[0].appendChild(link);
+            };
+
+            // URL da sua logo principal
+            setFavicon('https://iili.io/FCvz5DQ.png');
+        });
+    </script>
+</body>
+</html>
