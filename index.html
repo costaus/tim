@@ -25,6 +25,7 @@
                         'tim-blue': '#003366',
                         'tim-red': '#e41e26',
                         'accent-blue': '#00a8e0',
+                        'deezer-green': '#1DB954',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif'],
@@ -52,16 +53,11 @@
         .splash-bg {
             background: linear-gradient(135deg, #448aff, #ffab40, #ff5252, #69f0ae, #ff4081, #d500f9);
             background-size: 1000% 1000%;
+            transition: opacity 0.7s ease;
         }
         .splash-active {
             animation: metallic-splash 15s ease infinite;
         }
-
-        /* Estilo do Toggle Deezer */
-        .deezer-toggle-bg-inactive { background-color: #e5e7eb; } /* gray-200 */
-        .deezer-toggle-bg-active { background-color: #1DB954; } /* Spotify/Deezer Green */
-        .deezer-toggle-handle-inactive { transform: translateX(0); }
-        .deezer-toggle-handle-active { transform: translateX(1.5rem); }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -115,21 +111,21 @@
                         <p class="text-gray-600 mt-3 text-lg">A velocidade e estabilidade que sua casa merece.</p>
                     </div>
                     <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-tim-blue reveal-on-scroll">
-                        <h3 class="text-3xl font-bold text-center text-gray-800">TIM Ultrafibra 1 GIGA</h3>
+                        <h3 class="text-3xl font-bold text-center text-gray-800">TIM Ultrafibra 1 GB</h3>
                         <div class="my-6 flex justify-center items-baseline whitespace-nowrap"><span class="text-6xl font-black text-tim-blue">R$ 119</span><span class="text-2xl font-bold text-gray-500">,99/mês</span></div>
                         <ul class="space-y-4 text-gray-700 mb-8 text-lg">
                             <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sinal excelente</li>
                             <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Conexão rápida</li>
                             <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sem travamentos</li>
                         </ul>
-                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20quero%20contratar%20o%20plano%20TIM%20Ultrafibra%20de%201%20GIGA%20por%20R$119,99." target="_blank" class="w-full mt-auto bg-tim-red text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-red-700 transition duration-300 text-xl">Contratar Fibra</a>
+                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20quero%20contratar%20o%20plano%20TIM%20Ultrafibra%20de%201%20GB%20por%20R$119,99." target="_blank" class="w-full mt-auto bg-tim-red text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-red-700 transition duration-300 text-xl">Contratar Fibra</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- BLOCO 3: SEÇÃO PLANOS MÓVEIS PJ -->
-        <section id="moveis" class="py-20 bg-gray-100">
+        <section id="moveis" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16 reveal-on-scroll">
                     <h2 class="text-4xl md:text-5xl font-extrabold text-tim-blue">Planos Móveis PJ</h2>
@@ -139,66 +135,79 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Plano 6GB -->
                     <div class="bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border">
-                        <h3 class="text-2xl font-bold text-gray-800">6 GIGA</h3>
+                        <h3 class="text-2xl font-bold text-gray-800">6 GB</h3>
                         <div class="my-4"><span class="text-4xl font-extrabold text-tim-blue">R$ 39<span class="text-2xl">,90</span></span><span class="text-gray-500">/mês</span></div>
                         <div class="flex-grow space-y-4">
                             <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
                             <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                <img src="https://iili.io/FuZc1AG.png" class="h-7 w-7 object-cover rounded-md" alt="WhatsApp">
-                                <img src="https://iili.io/FuZAf6u.jpg" class="h-7 w-7 object-cover rounded-md" alt="Instagram">
-                                <img src="https://iili.io/FuZlAOb.png" class="h-7 w-7 object-cover rounded-md" alt="X">
-                                <img src="https://i.imgur.com/7aRkRjA.png" class="h-7 w-7 object-cover rounded-md" alt="Facebook">
-                                <img src="https://i.imgur.com/u4R3pks.png" class="h-7 w-7 object-cover rounded-md" alt="Messenger">
-                                <img src="https://iili.io/FuZ15PV.jpg" class="h-7 w-7 object-cover rounded-md" alt="Waze">
+                                <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
+                                <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
+                                <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
+                                <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
                             </div>
                         </div>
                         <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Gostaria%20de%20contratar%20o%20plano%20móvel%20PJ%20de%206GB%20por%20R$39,90." target="_blank" class="w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
                     </div>
 
                     <!-- Card Base para Planos com Deezer -->
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden transition-all duration-700" data-plan-id="30gb">
-                        <div class="absolute inset-0 splash-bg opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
+                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="30gb">
+                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
                         <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800">30 GIGA</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue"></span><span class="text-gray-500">/mês</span></div>
+                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">30 GB</h3>
+                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
                             <div class="flex-grow space-y-4">
                                 <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
                                 <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                    <img src="https://iili.io/FuZc1AG.png" class="h-7 w-7 object-cover rounded-md" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-7 w-7 object-cover rounded-md" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-7 w-7 object-cover rounded-md" alt="X"> <img src="https://i.imgur.com/7aRkRjA.png" class="h-7 w-7 object-cover rounded-md" alt="Facebook"> <img src="https://i.imgur.com/u4R3pks.png" class="h-7 w-7 object-cover rounded-md" alt="Messenger"> <img src="https://iili.io/FuZ15PV.jpg" class="h-7 w-7 object-cover rounded-md" alt="Waze">
+                                    <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X"> <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
                                 </div>
-                                <button class="deezer-toggle w-full flex items-center justify-center p-2 rounded-lg" aria-label="Ativar Deezer Premium"><div class="w-14 h-8 deezer-toggle-bg-inactive rounded-full flex items-center p-1 transition-colors duration-300"><div class="bg-white w-6 h-6 rounded-full shadow-md deezer-toggle-handle-inactive transition-transform duration-300 flex items-center justify-center"><img src="https://iili.io/FuZnKdB.png" class="h-4" alt="Deezer Logo"></div></div><span class="ml-3 font-semibold text-sm text-gray-700">Deezer Premium</span></button>
+                                <div class="pt-4 flex flex-col items-center">
+                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
+                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
+                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
+                                    </button>
+                                </div>
                             </div>
                             <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
                         </div>
                     </div>
                     
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden transition-all duration-700" data-plan-id="50gb">
-                        <div class="absolute inset-0 splash-bg opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
+                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="50gb">
+                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
                         <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800">50 GIGA</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue"></span><span class="text-gray-500">/mês</span></div>
+                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">50 GB</h3>
+                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
                             <div class="flex-grow space-y-4">
                                 <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
                                 <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                    <img src="https://iili.io/FuZc1AG.png" class="h-7 w-7 object-cover rounded-md" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-7 w-7 object-cover rounded-md" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-7 w-7 object-cover rounded-md" alt="X"> <img src="https://i.imgur.com/7aRkRjA.png" class="h-7 w-7 object-cover rounded-md" alt="Facebook"> <img src="https://i.imgur.com/u4R3pks.png" class="h-7 w-7 object-cover rounded-md" alt="Messenger"> <img src="https://iili.io/FuZ15PV.jpg" class="h-7 w-7 object-cover rounded-md" alt="Waze">
+                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X"> <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
                                 </div>
-                                <button class="deezer-toggle w-full flex items-center justify-center p-2 rounded-lg" aria-label="Ativar Deezer Premium"><div class="w-14 h-8 deezer-toggle-bg-inactive rounded-full flex items-center p-1 transition-colors duration-300"><div class="bg-white w-6 h-6 rounded-full shadow-md deezer-toggle-handle-inactive transition-transform duration-300 flex items-center justify-center"><img src="https://iili.io/FuZnKdB.png" class="h-4" alt="Deezer Logo"></div></div><span class="ml-3 font-semibold text-sm text-gray-700">Deezer Premium</span></button>
+                                <div class="pt-4 flex flex-col items-center">
+                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
+                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
+                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
+                                    </button>
+                                </div>
                             </div>
                             <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
                         </div>
                     </div>
 
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden transition-all duration-700" data-plan-id="100gb">
-                        <div class="absolute inset-0 splash-bg opacity-0 transition-opacity duration-700" aria-hidden="true"></div>
+                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="100gb">
+                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
                         <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800">100 GIGA</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue"></span><span class="text-gray-500">/mês</span></div>
+                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">100 GB</h3>
+                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
                             <div class="flex-grow space-y-4">
                                 <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
                                 <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                    <img src="https://iili.io/FuZc1AG.png" class="h-7 w-7 object-cover rounded-md" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-7 w-7 object-cover rounded-md" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-7 w-7 object-cover rounded-md" alt="X"> <img src="https://i.imgur.com/7aRkRjA.png" class="h-7 w-7 object-cover rounded-md" alt="Facebook"> <img src="https://i.imgur.com/u4R3pks.png" class="h-7 w-7 object-cover rounded-md" alt="Messenger"> <img src="https://iili.io/FuZ15PV.jpg" class="h-7 w-7 object-cover rounded-md" alt="Waze">
+                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp"> <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram"> <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X"> <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
                                 </div>
-                                <button class="deezer-toggle w-full flex items-center justify-center p-2 rounded-lg" aria-label="Ativar Deezer Premium"><div class="w-14 h-8 deezer-toggle-bg-inactive rounded-full flex items-center p-1 transition-colors duration-300"><div class="bg-white w-6 h-6 rounded-full shadow-md deezer-toggle-handle-inactive transition-transform duration-300 flex items-center justify-center"><img src="https://iili.io/FuZnKdB.png" class="h-4" alt="Deezer Logo"></div></div><span class="ml-3 font-semibold text-sm text-gray-700">Deezer Premium</span></button>
+                                <div class="pt-4 flex flex-col items-center">
+                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
+                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
+                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
+                                    </button>
+                                </div>
                             </div>
                             <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
                         </div>
@@ -235,6 +244,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Setup Básico
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             if (menuBtn) menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
@@ -255,12 +265,12 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
+            // Lógica dos Planos Móveis
             const planDetails = {
                 '30gb': { basePrice: 52.99, deezerPrice: 57.99, isDeezerActive: false },
                 '50gb': { basePrice: 69.99, deezerPrice: 75.99, isDeezerActive: false },
                 '100gb': { basePrice: 99.99, deezerPrice: 105.00, isDeezerActive: false }
             };
-
             const wppBaseUrl = "https://api.whatsapp.com/send?phone=5535984510438&text=";
 
             function updatePlanView(planId) {
@@ -268,53 +278,64 @@
                 const card = document.querySelector(`.plan-card[data-plan-id="${planId}"]`);
                 if (!card) return;
 
-                const priceElement = card.querySelector('.price-element');
-                const ctaButton = card.querySelector('.cta-button');
-                const splashBg = card.querySelector('.splash-bg');
-                const titleElement = card.querySelector('.plan-title');
-                const toggleHandle = card.querySelector('.deezer-toggle-handle-inactive');
-                const toggleBg = card.querySelector('.deezer-toggle-bg-inactive');
+                const ui = {
+                    price: card.querySelector('.price-element'),
+                    suffix: card.querySelector('.price-suffix'),
+                    cta: card.querySelector('.cta-button'),
+                    splash: card.querySelector('.splash-bg'),
+                    title: card.querySelector('.plan-title'),
+                    deezerText: card.querySelector('.deezer-text'),
+                    toggle: card.querySelector('.deezer-toggle'),
+                    handle: card.querySelector('.deezer-handle')
+                };
 
                 const currentPrice = planData.isDeezerActive ? planData.deezerPrice : planData.basePrice;
                 const [integer, decimal] = currentPrice.toFixed(2).split('.');
-                priceElement.innerHTML = `R$ ${integer}<span class="text-2xl">,${decimal}</span>`;
+                ui.price.innerHTML = `R$ ${integer}<span class="text-2xl">,${decimal}</span>`;
                 
+                const planName = ui.title.textContent;
                 let wppMessage;
-                const planName = titleElement.textContent;
+                
+                // Limpa classes de cor/fundo antes de aplicar as novas
+                ui.title.classList.remove('text-white', 'text-gray-800');
+                ui.price.classList.remove('text-white', 'text-tim-blue');
+                ui.suffix.classList.remove('text-gray-200', 'text-gray-500');
+                ui.deezerText.classList.remove('text-white', 'text-gray-600');
                 
                 if (planData.isDeezerActive) {
                     wppMessage = `Olá! Tenho interesse no plano ${planName} com Deezer Premium por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    splashBg.classList.add('splash-active');
-                    splashBg.style.opacity = '1';
-                    titleElement.classList.add('text-white');
-                    priceElement.classList.add('text-white');
-                    priceElement.nextElementSibling.classList.add('text-gray-200');
-                    toggleHandle.classList.add('deezer-toggle-handle-active');
-                    toggleBg.classList.add('deezer-toggle-bg-active');
+                    ui.splash.classList.add('splash-active');
+                    ui.splash.style.opacity = '1';
+                    ui.title.classList.add('text-white');
+                    ui.price.classList.add('text-white');
+                    ui.suffix.classList.add('text-gray-200');
+                    ui.deezerText.classList.add('text-white');
+                    ui.toggle.classList.remove('bg-gray-200');
+                    ui.toggle.classList.add('bg-deezer-green');
+                    ui.handle.style.transform = 'translateX(2.5rem)';
                 } else {
                     wppMessage = `Olá! Tenho interesse no plano ${planName} por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    splashBg.classList.remove('splash-active');
-                    splashBg.style.opacity = '0';
-                    titleElement.classList.remove('text-white');
-                    priceElement.classList.remove('text-white');
-                    priceElement.nextElementSibling.classList.remove('text-gray-200');
-                    toggleHandle.classList.remove('deezer-toggle-handle-active');
-                    toggleBg.classList.remove('deezer-toggle-bg-active');
+                    ui.splash.classList.remove('splash-active');
+                    ui.splash.style.opacity = '0';
+                    ui.title.classList.add('text-gray-800');
+                    ui.price.classList.add('text-tim-blue');
+                    ui.suffix.classList.add('text-gray-500');
+                    ui.deezerText.classList.add('text-gray-600');
+                    ui.toggle.classList.add('bg-gray-200');
+                    ui.toggle.classList.remove('bg-deezer-green');
+                    ui.handle.style.transform = 'translateX(0)';
                 }
                 
-                ctaButton.href = wppBaseUrl + encodeURIComponent(wppMessage);
+                ui.cta.href = wppBaseUrl + encodeURIComponent(wppMessage);
             }
 
             document.querySelectorAll('.plan-card').forEach(card => {
                 const planId = card.dataset.planId;
                 if (planDetails[planId]) {
-                    // Initialize the view for each card
-                    updatePlanView(planId);
-
+                    updatePlanView(planId); // Initialize
                     const deezerToggle = card.querySelector('.deezer-toggle');
                     if(deezerToggle) {
-                        deezerToggle.addEventListener('click', (e) => {
-                            e.preventDefault(); // Prevent any default button behavior
+                        deezerToggle.addEventListener('click', () => {
                             planDetails[planId].isDeezerActive = !planDetails[planId].isDeezerActive;
                             updatePlanView(planId);
                         });
