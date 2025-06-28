@@ -1,359 +1,233 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revendedor TIM Ultrafibra e Planos Móveis PJ</title>
+    <title>Rhilary Soares - O Universo Particular</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Google Fonts: Bebas Neue, Poppins, Parisienne -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;700&family=Parisienne&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
-    <link rel="icon" href="https://iili.io/FTKiFAG.png" type="image/png">
+    <!-- Animate On Scroll (AOS) Library for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <script>
-        // Configuração customizada do Tailwind
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tim-blue': '#003366',
-                        'tim-red': '#e41e26',
-                        'accent-blue': '#00a8e0',
-                        'deezer-green': '#1DB954',
-                    },
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <!-- Custom Styles -->
     <style>
-        /* Animações e Estilos de Suporte */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            --neon-pink: #f472b6;
+            --dark-bg: #030303;
         }
-        .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
-        .reveal-on-scroll { opacity: 0; visibility: hidden; transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
 
-        /* Estilo da Animação de Fundo Metálico (Splash) */
-        @keyframes metallic-splash {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        body {
+            background-color: var(--dark-bg);
+            color: #e5e7eb;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
         }
-        .splash-bg {
-            background: linear-gradient(135deg, #448aff, #ffab40, #ff5252, #69f0ae, #ff4081, #d500f9);
-            background-size: 1000% 1000%;
-            transition: opacity 0.7s ease;
+
+        /* Aurora effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(
+                400px circle at var(--mouse-x) var(--mouse-y),
+                rgba(244, 114, 182, 0.1),
+                transparent 80%
+            );
         }
-        .splash-active {
-            animation: metallic-splash 15s ease infinite;
+
+        .font-bebas {
+            font-family: 'Bebas Neue', sans-serif;
         }
+
+        .font-signature {
+            font-family: 'Parisienne', cursive;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 8px var(--neon-pink), 0 0 20px rgba(244, 114, 182, 0.5);
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--neon-pink);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px rgba(244, 114, 182, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .section-full {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 1.5rem;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: var(--neon-pink);
+            transform: translateY(-10px);
+        }
+        
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* Stronger fade effect */
+        .image-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px; /* Small overlap to avoid thin lines */
+            width: 100%;
+            height: 60%; /* Increased height */
+            background: linear-gradient(to top, var(--dark-bg) 30%, transparent 100%); /* Stronger gradient */
+        }
+        
+        .image-container img {
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.7));
+            display: block; /* Ensures the container wraps the image correctly */
+        }
+
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body>
 
-    <!-- CABEÇALHO -->
-    <header id="header" class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
-                <a href="#"><img src="https://iili.io/FTKiFAG.png" alt="Logo TIM" class="h-12" onerror="this.onerror=null; this.src='https://placehold.co/150x50/003366/ffffff?text=TIM';"></a>
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="#fibra" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Fibra</a>
-                    <a href="#moveis" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Móvel PJ</a>
-                    <a href="#contato" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Contato</a>
-                </nav>
-                <div class="hidden md:block">
-                    <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="bg-tim-red text-white px-6 py-3 rounded-full font-bold hover:bg-red-700 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-105">Contratar Online</a>
+    <!-- HERO SECTION -->
+    <section id="hero" class="section-full relative text-center">
+        <div class="z-10" data-aos="fade-up">
+            <h1 class="font-signature text-8xl md:text-9xl text-glow">Rhilary Soares</h1>
+            <p class="mt-4 text-xl md:text-2xl text-gray-300 font-light tracking-widest uppercase">O Universo Particular</p>
+            <a href="https://privacy.com.br/checkout/rhilary_soares?fbclid=PAQ0xDSwLM58xleHRuA2FlbQIxMAABp1gI_wJJdMXX3gfWdWwrVNePw7ntINHGoBW9NoAfPbqEMyW1E6_NwgZAf7QW_aem_flKNZN-kvjQZyUhm71fNmA" target="_blank" class="mt-8 inline-block px-10 py-3 font-bebas text-2xl tracking-wider btn-primary rounded-lg">
+                Descubra
+            </a>
+        </div>
+    </section>
+
+    <!-- WELCOME SECTION -->
+    <section id="welcome" class="section-full relative overflow-hidden">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
+                <!-- Text Content -->
+                <div class="z-10" data-aos="fade-right">
+                    <h2 class="font-bebas text-5xl md:text-7xl leading-none">Bem-vindo ao meu <span class="text-pink-400">mundo</span>.</h2>
+                    <p class="mt-6 text-lg text-gray-300 leading-relaxed">
+                        Este não é apenas um site. É um convite. Um convite para você conhecer um lado meu que ninguém mais vê. Sem máscaras, sem filtros. Apenas a minha versão mais autêntica e ousada, criada especialmente para você.
+                    </p>
+                    <p class="mt-4 text-lg text-gray-300 leading-relaxed">
+                        Esqueça tudo o que você pensa que sabe. Aqui, a realidade é muito mais interessante.
+                    </p>
                 </div>
-                <div class="md:hidden">
-                    <button id="menu-btn" class="text-tim-blue focus:outline-none"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
+                <!-- Image with Fade Effect -->
+                <div class="relative h-full flex items-center justify-center" data-aos="fade-left" data-aos-delay="200">
+                    <div class="image-container">
+                        <img src="https://res.cloudinary.com/dblbe6yze/image/upload/v1751118875/Untitled_design_q1vjvm.png" alt="Foto de Rhilary Soares" class="max-w-md lg:max-w-full w-full h-auto" onerror="this.onerror=null;this.src='https://placehold.co/600x800/030303/f472b6?text=Imagem+N%C3%A3o+Encontrada';">
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <a href="#fibra" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Fibra</a>
-            <a href="#moveis" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Móvel PJ</a>
-            <a href="#contato" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Contato</a>
-            <div class="p-4"><a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="block w-full text-center bg-tim-red text-white px-6 py-3 rounded-full font-bold hover:bg-red-700 transition duration-300">Contratar Online</a></div>
+    </section>
+
+    <!-- WHAT TO EXPECT SECTION -->
+    <section id="expect" class="py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-bebas text-5xl md:text-7xl mb-16" data-aos="zoom-in">O Que te Espera</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1: Exclusividade -->
+                <div class="card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="font-bebas text-3xl text-pink-400 mb-3">Exclusividade Total</h3>
+                    <p class="text-gray-400">Conteúdos que você jamais encontrará em qualquer outra rede social. Ensaios, vídeos e momentos íntimos compartilhados apenas aqui.</p>
+                </div>
+                <!-- Card 2: Conexão Direta -->
+                <div class="card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="font-bebas text-3xl text-pink-400 mb-3">Conexão Direta</h3>
+                    <p class="text-gray-400">Converse diretamente comigo. Tenha a chance de pedir conteúdos exclusivos e fazer parte do meu círculo mais próximo.</p>
+                </div>
+                <!-- Card 3: Sem Censura -->
+                <div class="card p-8 rounded-xl" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="font-bebas text-3xl text-pink-400 mb-3">Liberdade Sem Censura</h3>
+                    <p class="text-gray-400">Explore minha criatividade sem limites. Aqui, a arte e a sensualidade andam juntas, sem medo de expressar cada detalhe.</p>
+                </div>
+            </div>
         </div>
-    </header>
-
-    <!-- Corpo Principal do Site -->
-    <main>
-
-        <!-- BLOCO 1: SEÇÃO HERO -->
-        <section class="bg-gradient-to-br from-tim-blue to-blue-900 text-white">
-            <div class="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
-                <div class="w-full max-w-4xl animate-fade-in-up">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">Soluções Completas de Conectividade</h1>
-                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-blue-200">A melhor internet Fibra para sua casa e os melhores planos Móveis para sua empresa. Tudo em um só lugar.</p>
-                    <a href="#fibra" class="bg-white text-tim-blue px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 inline-block">Ver Planos</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOCO 2: SEÇÃO DO PLANO FIBRA -->
-        <section id="fibra" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <div class="max-w-lg mx-auto">
-                    <div class="text-center mb-12 reveal-on-scroll">
-                        <h2 class="text-4xl md:text-5xl font-extrabold text-tim-blue">Internet Fibra Óptica</h2>
-                        <p class="text-gray-600 mt-3 text-lg">A velocidade e estabilidade que sua casa merece.</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-tim-blue reveal-on-scroll">
-                        <h3 class="text-3xl font-bold text-center text-gray-800">TIM Ultrafibra 1 GB</h3>
-                        <div class="my-6 flex justify-center items-baseline whitespace-nowrap"><span class="text-6xl font-black text-tim-blue">R$ 119</span><span class="text-2xl font-bold text-gray-500">,99/mês</span></div>
-                        <ul class="space-y-4 text-gray-700 mb-8 text-lg">
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sinal excelente</li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Conexão rápida</li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sem travamentos</li>
-                        </ul>
-                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20quero%20contratar%20o%20plano%20TIM%20Ultrafibra%20de%201%20GB%20por%20R$119,99." target="_blank" class="w-full mt-auto bg-tim-red text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-red-700 transition duration-300 text-xl">Contratar Fibra</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOCO 3: SEÇÃO PLANOS MÓVEIS PJ -->
-        <section id="moveis" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16 reveal-on-scroll">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-tim-blue">Planos Móveis PJ</h2>
-                    <p class="text-gray-600 mt-3 text-lg max-w-2xl mx-auto">A melhor conexão para sua empresa continuar crescendo.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Plano 6GB -->
-                    <div class="bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border">
-                        <h3 class="text-2xl font-bold text-gray-800">6 GB</h3>
-                        <div class="my-4"><span class="text-4xl font-extrabold text-tim-blue">R$ 39<span class="text-2xl">,90</span></span><span class="text-gray-500">/mês</span></div>
-                        <div class="flex-grow space-y-4">
-                            <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                            <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                            </div>
-                        </div>
-                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Gostaria%20de%20contratar%20o%20plano%20móvel%20PJ%20de%206GB%20por%20R$39,90." target="_blank" class="w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                    </div>
-
-                    <!-- Card Base para Planos com Deezer -->
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="30gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">30 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                    <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp"> 
-                                    <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                    <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram"> 
-                                    <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X"> 
-                                    <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                        </div>
-                    </div>
-                    
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="50gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">50 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                     <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                     <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                     <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                     <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                        </div>
-                    </div>
-
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="100gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">100 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                     <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                     <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                     <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                     <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOCO 4: SEÇÃO DE CONTATO (CTA) -->
-        <section id="contato" class="bg-gray-100 py-20">
-             <div class="container mx-auto px-6">
-                <div class="bg-tim-blue rounded-2xl p-10 md:p-16 text-center text-white reveal-on-scroll shadow-2xl">
-                    <h2 class="text-3xl md:text-4xl font-bold">Ainda com dúvidas?</h2>
-                    <p class="text-blue-200 mt-4 mb-8 max-w-2xl mx-auto text-lg">Fale agora com um consultor pelo WhatsApp. Vamos verificar a disponibilidade e tirar todas as suas dúvidas na hora!</p>
-                    <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-green-600 transition duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 inline-flex items-center">
-                        <svg class="w-7 h-7 mr-3" fill="currentColor" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="m12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 2.25c5.385 0 9.75 4.365 9.75 9.75s-4.365 9.75-9.75 9.75-9.75-4.365-9.75-9.75 4.365-9.75 9.75-9.75zm-3.123 4.477c-.199-.011-.422-.011-.621.088-.201.1-.333.223-.464.347-.132.124-.279.271-.403.433-.124.162-.259.347-.296.409-.037.062-.074.123-.074.199s.025.162.074.249c.049.086.123.185.123.185l.012.012c.025.025.062.062.111.123.284.346.592.691.949 1.011.358.321.74.617 1.147.888.407.271.826.506 1.283.678.456.173.888.296 1.295.345.407.05.777.012 1.098-.111.32-.123.58-.345.727-.617.148-.271.222-.567.222-.888s-.074-.58-.197-.814c-.123-.234-.308-.432-.308-.432l-.025-.025c-.025-.025-.062-.037-.111-.062-.049-.024-.111-.049-.185-.074-.382-.123-.765-.247-1.147-.37-.382-.123-.765-.246-1.147-.369-.21-.074-.407-.123-.58-.148-.173-.025-.358-.025-.506.037-.148.062-.284.148-.395.271-.111.124-.197.272-.259.444-.061.173-.098.346-.098.518s.024.333.074.481c.049.148.135.296.259.432.123.136.271.259.444.37.173.111.345.197.518.259.222.074.456.123.703.148.247.024.493.012.728-.025.234-.037.469-.098.691-.185.222-.086.432-.197.63-.333.197-.136.37-.296.518-.481.148-.185.259-.395.333-.617.074-.222.111-.456.111-.703s-.049-.518-.148-.752-.234-.444-.407-.617c-.173-.173-.382-.321-.617-.444-.235-.123-.494-.222-.765-.284-.271-.062-.555-.086-.826-.086-.407 0-.814.062-1.196.185-.383.123-.74.296-1.049.518-.308.222-.58.481-.79.765l-.086.111c-.049.074-.123.148-.222.222-.099.074-.197.123-.271.148-.074.025-.136.025-.197.012z"/>
-                    </svg>Falar com Consultor
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+    </section>
     
-    <!-- RODAPÉ -->
-    <footer class="bg-gray-900 text-white">
-        <div class="container mx-auto px-6 py-10">
-            <div class="text-center">
-                 <a href="#"><img src="https://iili.io/FTKiFAG.png" alt="Logo TIM" class="h-12 mx-auto mb-6" onerror="this.onerror=null; this.src='https://placehold.co/150x50/ffffff/1f2937?text=TIM';"></a>
-                <p class="text-gray-400">&copy; <span id="current-year"></span> Revendedor Autorizado TIM.</p>
-                <p class="text-xs text-gray-500 mt-3 max-w-md mx-auto">Este é o site de um revendedor autorizado TIM. As promoções e planos podem variar da oferta do site oficial TIM S.A.</p>
+    <!-- FINAL CTA SECTION -->
+    <section id="final-cta" class="py-20 md:py-32 relative text-center">
+        <div class="container mx-auto px-6">
+            <!-- Text Block -->
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <h2 class="font-bebas text-6xl md:text-8xl leading-none">A porta está <span class="text-pink-400 text-glow">aberta</span>.</h2>
+                <p class="mt-6 text-xl text-gray-300">
+                    A decisão é sua. Continue apenas na superfície ou mergulhe em uma experiência única.
+                </p>
+                <a href="https://privacy.com.br/checkout/rhilary_soares?fbclid=PAQ0xDSwLM58xleHRuA2FlbQIxMAABp1gI_wJJdMXX3gfWdWwrVNePw7ntINHGoBW9NoAfPbqEMyW1E6_NwgZAf7QW_aem_flKNZN-kvjQZyUhm71fNmA" target="_blank" class="mt-8 inline-block px-12 py-4 font-bebas text-3xl tracking-wider btn-primary rounded-lg">
+                    Entrar agora
+                </a>
             </div>
+            
+            <!-- Image below the text -->
+            <div class="mt-16 md:mt-24" data-aos="fade-up" data-aos-delay="200">
+                 <div class="image-container max-w-2xl mx-auto md:translate-x-8">
+                    <img src="https://res.cloudinary.com/dblbe6yze/image/upload/fl_preserve_transparency/v1751125255/Design_sem_nome_bjelfp.jpg?_s=public-apps" 
+                          alt="Foto de Rhilary Soares em pose" 
+                          class="w-full h-auto" 
+                          onerror="this.onerror=null;this.src='https://placehold.co/600x800/030303/f472b6?text=Imagem+N%C3%A3o+Encontrada';">
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-transparent py-8">
+        <div class="container mx-auto px-6 text-center text-gray-600">
+            <p>&copy; <span id="currentYear"></span> Rhilary Soares. Todos os direitos reservados.</p>
+            <p class="text-sm mt-2">Este site e seu conteúdo são destinados a maiores de 18 anos.</p>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Setup Básico
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (menuBtn) menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
-            
-            const yearSpan = document.getElementById('current-year');
-            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+        // Initialize Animate On Scroll library
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in-up');
-                        entry.target.style.opacity = '1';
-                        entry.target.style.visibility = 'visible';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        // Set current year in the footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-            // Lógica dos Planos Móveis
-            const planDetails = {
-                '30gb': { basePrice: 52.99, deezerPrice: 57.99, isDeezerActive: false },
-                '50gb': { basePrice: 69.99, deezerPrice: 75.99, isDeezerActive: false },
-                '100gb': { basePrice: 99.99, deezerPrice: 105.00, isDeezerActive: false }
-            };
-            const wppBaseUrl = "https://api.whatsapp.com/send?phone=5535984510438&text=";
-
-            function updatePlanView(planId) {
-                const planData = planDetails[planId];
-                const card = document.querySelector(`.plan-card[data-plan-id="${planId}"]`);
-                if (!card) return;
-
-                const ui = {
-                    price: card.querySelector('.price-element'),
-                    suffix: card.querySelector('.price-suffix'),
-                    cta: card.querySelector('.cta-button'),
-                    splash: card.querySelector('.splash-bg'),
-                    title: card.querySelector('.plan-title'),
-                    deezerText: card.querySelector('.deezer-text'),
-                    toggle: card.querySelector('.deezer-toggle'),
-                    handle: card.querySelector('.deezer-handle')
-                };
-
-                const currentPrice = planData.isDeezerActive ? planData.deezerPrice : planData.basePrice;
-                const [integer, decimal] = currentPrice.toFixed(2).split('.');
-                ui.price.innerHTML = `R$ ${integer}<span class="text-2xl">,${decimal}</span>`;
-                
-                const planName = ui.title.textContent;
-                let wppMessage;
-                
-                ui.title.classList.remove('text-white', 'text-gray-800');
-                ui.price.classList.remove('text-white', 'text-tim-blue');
-                ui.suffix.classList.remove('text-gray-200', 'text-gray-500');
-                ui.deezerText.classList.remove('text-white', 'text-gray-600');
-                
-                if (planData.isDeezerActive) {
-                    wppMessage = `Olá! Tenho interesse no plano ${planName} com Deezer Premium por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    ui.splash.classList.add('splash-active');
-                    ui.splash.style.opacity = '1';
-                    ui.title.classList.add('text-white');
-                    ui.price.classList.add('text-white');
-                    ui.suffix.classList.add('text-gray-200');
-                    ui.deezerText.classList.add('text-white');
-                    ui.toggle.classList.remove('bg-gray-200');
-                    ui.toggle.classList.add('bg-deezer-green');
-                    ui.handle.style.transform = 'translateX(2.5rem)';
-                } else {
-                    wppMessage = `Olá! Tenho interesse no plano ${planName} por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    ui.splash.classList.remove('splash-active');
-                    ui.splash.style.opacity = '0';
-                    ui.title.classList.add('text-gray-800');
-                    ui.price.classList.add('text-tim-blue');
-                    ui.suffix.classList.add('text-gray-500');
-                    ui.deezerText.classList.add('text-gray-600');
-                    ui.toggle.classList.add('bg-gray-200');
-                    ui.toggle.classList.remove('bg-deezer-green');
-                    ui.handle.style.transform = 'translateX(0)';
-                }
-                
-                ui.cta.href = wppBaseUrl + encodeURIComponent(wppMessage);
-            }
-
-            document.querySelectorAll('.plan-card').forEach(card => {
-                const planId = card.dataset.planId;
-                if (planDetails[planId]) {
-                    updatePlanView(planId); // Initialize
-                    const deezerToggle = card.querySelector('.deezer-toggle');
-                    if(deezerToggle) {
-                        deezerToggle.addEventListener('click', () => {
-                            planDetails[planId].isDeezerActive = !planDetails[planId].isDeezerActive;
-                            updatePlanView(planId);
-                        });
-                    }
-                }
-            });
+        // Aurora mouse effect
+        document.addEventListener('mousemove', (e) => {
+            document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+            document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
         });
     </script>
 </body>
