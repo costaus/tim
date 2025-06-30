@@ -1,358 +1,286 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-br" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revendedor TIM Ultrafibra e Planos Móveis PJ</title>
+    <title>Savana Eventos - Parcerias Estratégicas</title>
     
-    <!-- Tailwind CSS -->
+    <meta name="description" content="Se você tem presença, atitude e vontade de fazer parte de algo grande, essa vaga é sua. Bora fazer barulho juntos?">
+    <meta property="og:title" content="Savana Eventos - Parcerias Estratégicas">
+    <meta property="og:image" content="https://iili.io/FCvz5DQ.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="https://iili.io/FTKiFAG.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://iili.io/FCvz5DQ.png" type="image/png">
 
-    <script>
-        // Configuração customizada do Tailwind
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'tim-blue': '#003366',
-                        'tim-red': '#e41e26',
-                        'accent-blue': '#00a8e0',
-                        'deezer-green': '#1DB954',
-                    },
-                    fontFamily: {
-                        'sans': ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    
     <style>
-        /* Animações e Estilos de Suporte */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            --cor-principal: #E711F0;
+            --cor-fundo: #0a0a0a;
+            --cor-input: rgba(31, 31, 31, 0.6); 
+            --cor-borda: #444;
+            --cor-texto: #f0f0f0;
         }
-        .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
-        .reveal-on-scroll { opacity: 0; visibility: hidden; transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            transition: background-color 0.5s;
+        }
+        #tsparticles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        
+        .floating-container {
+            backdrop-filter: blur(2px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .text-shadow-subtle {
+             text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.6);
+        }
 
-        /* Estilo da Animação de Fundo Metálico (Splash) */
-        @keyframes metallic-splash {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .form-input, .form-select {
+            background-color: var(--cor-input); border: 1px solid var(--cor-borda); color: var(--cor-texto);
+            border-radius: 10px; padding: 0.85rem 1rem; width: 100%;
+            transition: border-color 0.3s, box-shadow 0.3s; font-size: 1rem;
         }
-        .splash-bg {
-            background: linear-gradient(135deg, #448aff, #ffab40, #ff5252, #69f0ae, #ff4081, #d500f9);
-            background-size: 1000% 1000%;
-            transition: opacity 0.7s ease;
+        .form-input:focus, .form-select:focus {
+            outline: none; border-color: var(--cor-principal);
+            box-shadow: 0 0 0 3px rgba(231, 17, 240, 0.3);
         }
-        .splash-active {
-            animation: metallic-splash 15s ease infinite;
+        .platform-button {
+            background-color: rgba(31, 31, 31, 0.4);
+            border: 2px solid var(--cor-borda); border-radius: 12px; padding: 0.75rem;
+            cursor: pointer; transition: all 0.2s ease-in-out; opacity: 0.7;
         }
+        .platform-button.active {
+            border-color: var(--cor-principal); box-shadow: 0 0 15px rgba(231, 17, 240, 0.5);
+            transform: scale(1.1); opacity: 1;
+        }
+        .submit-button {
+            background: linear-gradient(90deg, #E711F0, #8A2BE2);
+            transition: all 0.2s;
+        }
+        .submit-button:disabled { background: #555; cursor: not-allowed; }
+        
+        #form-fields:disabled { pointer-events: none; opacity: 0.4; }
+        #form-block-overlay { position: absolute; inset: 0; z-index: 10; background: transparent; }
+        
+        #toast-message {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background-color: var(--cor-principal); color: white; padding: 1rem 1.5rem; border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; z-index: 999;
+        }
+        #toast-message.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        
+        .fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body>
+    <!-- 
+    *************************
+    * \ / *
+    * \ / *
+    * ██████╗ █████╗ ███╗ ██╗ *
+    * ██╔══██╗██╔══██╗████╗ ██║ *
+    * ██║ ██║███████║██╔██╗ ██║ *
+    * ██║ ██║██╔══██║██║╚██╗██║ *
+    * ██████╔╝██║ ██║██║ ╚████║ *
+    * ╚═════╝ ╚═╝ ╚═╝╚═╝ ╚═══╝ *
+    * / \ *
+    * / \ *
+    *************************
+    -->
+    <div id="tsparticles"></div>
+    <div id="toast-message">Selecione uma plataforma para começar.</div>
 
-    <!-- CABEÇALHO -->
-    <header id="header" class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
-                <a href="#"><img src="https://iili.io/FTKiFAG.png" alt="Logo TIM" class="h-12" onerror="this.onerror=null; this.src='https://placehold.co/150x50/003366/ffffff?text=TIM';"></a>
-                <nav class="hidden md:flex items-center space-x-6">
-                    <a href="#fibra" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Fibra</a>
-                    <a href="#moveis" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Móvel PJ</a>
-                    <a href="#contato" class="text-gray-600 hover:text-tim-blue transition duration-300 font-semibold">Contato</a>
-                </nav>
-                <div class="hidden md:block">
-                    <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="bg-tim-red text-white px-6 py-3 rounded-full font-bold hover:bg-red-700 transition duration-300 shadow-md hover:shadow-lg transform hover:scale-105">Contratar Online</a>
-                </div>
-                <div class="md:hidden">
-                    <button id="menu-btn" class="text-tim-blue focus:outline-none"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
-                </div>
+    <div id="form-wrapper" class="w-full max-w-2xl">
+        <header class="text-center mb-6">
+            <img src="https://iili.io/FCvz5DQ.png" alt="Logo Savana Eventos" class="h-24 md:h-28 mx-auto">
+        </header>
+        <main class="floating-container p-6 md:p-10">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-[var(--cor-principal)] text-shadow-subtle">Proposta de Parceria</h1>
+                <p class="text-gray-200 mt-4 text-shadow-subtle">Se você tem presença, atitude e vontade de fazer parte de algo grande, essa vaga é sua. Bora fazer barulho juntos?</p>
             </div>
-        </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-            <a href="#fibra" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Fibra</a>
-            <a href="#moveis" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Móvel PJ</a>
-            <a href="#contato" class="block py-3 px-6 text-gray-700 hover:bg-gray-100 hover:text-tim-blue">Contato</a>
-            <div class="p-4"><a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="block w-full text-center bg-tim-red text-white px-6 py-3 rounded-full font-bold hover:bg-red-700 transition duration-300">Contratar Online</a></div>
-        </div>
-    </header>
-
-    <!-- Corpo Principal do Site -->
-    <main>
-
-        <!-- BLOCO 1: SEÇÃO HERO -->
-        <section class="bg-gradient-to-br from-tim-blue to-blue-900 text-white">
-            <div class="container mx-auto px-6 py-24 md:py-32 flex flex-col items-center text-center">
-                <div class="w-full max-w-4xl animate-fade-in-up">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">Soluções Completas de Conectividade</h1>
-                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-blue-200">A melhor internet Fibra para sua casa e os melhores planos Móveis para sua empresa. Tudo em um só lugar.</p>
-                    <a href="#fibra" class="bg-white text-tim-blue px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-200 transition duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 inline-block">Ver Planos</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- BLOCO 2: SEÇÃO DO PLANO FIBRA -->
-        <section id="fibra" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <div class="max-w-lg mx-auto">
-                    <div class="text-center mb-12 reveal-on-scroll">
-                        <h2 class="text-4xl md:text-5xl font-extrabold text-tim-blue">Internet Fibra Óptica</h2>
-                        <p class="text-gray-600 mt-3 text-lg">A velocidade e estabilidade que sua casa merece.</p>
-                    </div>
-                    <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-tim-blue reveal-on-scroll">
-                        <h3 class="text-3xl font-bold text-center text-gray-800">TIM Ultrafibra 1 GB</h3>
-                        <div class="my-6 flex justify-center items-baseline whitespace-nowrap"><span class="text-6xl font-black text-tim-blue">R$ 119</span><span class="text-2xl font-bold text-gray-500">,99/mês</span></div>
-                        <ul class="space-y-4 text-gray-700 mb-8 text-lg">
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sinal excelente</li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Conexão rápida</li>
-                            <li class="flex items-center"><svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>Sem travamentos</li>
-                        </ul>
-                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20quero%20contratar%20o%20plano%20TIM%20Ultrafibra%20de%201%20GB%20por%20R$119,99." target="_blank" class="w-full mt-auto bg-tim-red text-white text-center px-6 py-4 rounded-lg font-bold hover:bg-red-700 transition duration-300 text-xl">Contratar Fibra</a>
+            <form id="partnership-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold mb-2 text-gray-400 text-center w-full text-shadow-subtle">Selecione as suas principais plataformas</label>
+                    <div class="flex justify-center gap-6 platform-selector">
+                        <button type="button" class="platform-button" data-platform="instagram"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="Logo Instagram" class="w-10 h-10 object-contain pointer-events-none"></button>
+                        <button type="button" class="platform-button" data-platform="tiktok"><img src="https://iili.io/F5GLeEJ.png" alt="Logo TikTok" class="w-10 h-10 object-contain pointer-events-none"></button>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- BLOCO 3: SEÇÃO PLANOS MÓVEIS PJ -->
-        <section id="moveis" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16 reveal-on-scroll">
-                    <h2 class="text-4xl md:text-5xl font-extrabold text-tim-blue">Planos Móveis PJ</h2>
-                    <p class="text-gray-600 mt-3 text-lg max-w-2xl mx-auto">A melhor conexão para sua empresa continuar crescendo.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Plano 6GB -->
-                    <div class="bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border">
-                        <h3 class="text-2xl font-bold text-gray-800">6 GB</h3>
-                        <div class="my-4"><span class="text-4xl font-extrabold text-tim-blue">R$ 39<span class="text-2xl">,90</span></span><span class="text-gray-500">/mês</span></div>
-                        <div class="flex-grow space-y-4">
-                            <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                            <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                            </div>
+                <div class="relative">
+                    <div id="form-block-overlay"></div>
+                    <fieldset id="form-fields" disabled class="space-y-6">
+                        <input type="hidden" name="Plataformas Selecionadas" id="selected-platforms">
+                        <div>
+                            <label for="name" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">Nome Completo</label>
+                            <input type="text" id="name" name="Nome" class="form-input" placeholder="O seu nome" required>
                         </div>
-                        <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Gostaria%20de%20contratar%20o%20plano%20móvel%20PJ%20de%206GB%20por%20R$39,90." target="_blank" class="w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                    </div>
-
-                    <!-- Card Base para Planos com Deezer -->
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="30gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">30 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                    <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp"> 
-                                    <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                    <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram"> 
-                                    <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X"> 
-                                    <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">Email de Contacto</label>
+                            <input type="email" id="email" name="Email" class="form-input" placeholder="seu@email.com" required>
                         </div>
-                    </div>
-                    
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="50gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">50 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                     <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                     <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                     <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                     <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
+                        <div id="instagram-field" class="hidden"><label for="instagram" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">O seu @ no Instagram</label><input type="text" id="instagram" name="Instagram" class="form-input" placeholder="@usuario"></div>
+                        <div id="tiktok-field" class="hidden"><label for="tiktok" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">O seu @ no TikTok</label><input type="text" id="tiktok" name="TikTok" class="form-input" placeholder="@usuario"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div><label for="followers" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">Faixa de Seguidores</label><select id="followers" name="Seguidores" class="form-select" required><option value="" disabled selected>Na sua rede principal</option><option value="<5k">Menos de 5.000</option><option value="5k-10k">5.001 - 10.000</option><option value="10k-20k">10.001 - 20.000</option><option value="20k-30k">20.001 - 30.000</option><option value=">30k">Mais de 30.000</option></select></div>
+                            <div><label for="city" class="block text-sm font-semibold mb-2 text-gray-400 text-shadow-subtle">A sua Cidade / Região</label><input type="text" id="city" name="Cidade" class="form-input" placeholder="Ex: Lavras - MG" required></div>
                         </div>
-                    </div>
-
-                    <div class="plan-card bg-white rounded-2xl p-6 text-center shadow-lg flex flex-col reveal-on-scroll border relative overflow-hidden" data-plan-id="100gb">
-                        <div class="splash-bg absolute inset-0 opacity-0" aria-hidden="true"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <h3 class="plan-title text-2xl font-bold text-gray-800 transition-colors duration-500">100 GB</h3>
-                            <div class="my-4"><span class="price-element text-4xl font-extrabold text-tim-blue transition-colors duration-500"></span><span class="price-suffix text-gray-500 transition-colors duration-500">/mês</span></div>
-                            <div class="flex-grow space-y-4">
-                                <p class="font-semibold text-tim-blue">+ Apps Ilimitados</p>
-                                <div class="flex justify-center items-center space-x-3 flex-wrap gap-y-2">
-                                     <img src="https://iili.io/FuZc1AG.png" class="h-8 w-8 object-cover rounded-lg" alt="WhatsApp">
-                                     <img src="https://iili.io/FutrQ0N.png" class="h-8 w-8 object-cover rounded-lg" alt="App Logo">
-                                     <img src="https://iili.io/FuZAf6u.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Instagram">
-                                     <img src="https://iili.io/FuZlAOb.png" class="h-8 w-8 object-cover rounded-lg" alt="X">
-                                     <img src="https://iili.io/FuZ15PV.jpg" class="h-8 w-8 object-cover rounded-lg" alt="Waze">
-                                </div>
-                                <div class="pt-4 flex flex-col items-center">
-                                    <p class="text-sm font-semibold mb-2 text-gray-600 transition-colors duration-500 deezer-text">Adicionar Deezer Premium:</p>
-                                    <button class="deezer-toggle w-20 h-10 bg-gray-200 rounded-full flex items-center p-1 cursor-pointer transition-colors duration-300">
-                                        <div class="deezer-handle w-8 h-8 rounded-full shadow-md transform transition-transform duration-300 ease-in-out" style="background-image: url('https://iili.io/FutKoOu.png'); background-size: cover; background-position: center;"></div>
-                                    </button>
-                                </div>
-                            </div>
-                            <a href="#" target="_blank" class="cta-button w-full mt-6 bg-tim-red text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition">Contratar</a>
-                        </div>
-                    </div>
+                    </fieldset>
                 </div>
-            </div>
-        </section>
+                <div><button type="submit" id="submit-button" class="submit-button w-full text-white font-bold py-3 px-4 rounded-lg" disabled>Enviar Proposta de Parceria</button></div>
+            </form>
+        </main>
+    </div>
 
-        <!-- BLOCO 4: SEÇÃO DE CONTATO (CTA) -->
-        <section id="contato" class="bg-gray-100 py-20">
-             <div class="container mx-auto px-6">
-                <div class="bg-tim-blue rounded-2xl p-10 md:p-16 text-center text-white reveal-on-scroll shadow-2xl">
-                    <h2 class="text-3xl md:text-4xl font-bold">Ainda com dúvidas?</h2>
-                    <p class="text-blue-200 mt-4 mb-8 max-w-2xl mx-auto text-lg">Fale agora com um consultor pelo WhatsApp. Vamos verificar a disponibilidade e tirar todas as suas dúvidas na hora!</p>
-                    <a href="https://api.whatsapp.com/send?phone=5535984510438&text=Olá!%20Vi%20o%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20planos." target="_blank" class="bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-green-600 transition duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 inline-flex items-center">
-                        <svg class="w-7 h-7 mr-3" fill="currentColor" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="m12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 2.25c5.385 0 9.75 4.365 9.75 9.75s-4.365 9.75-9.75 9.75-9.75-4.365-9.75-9.75 4.365-9.75 9.75-9.75zm-3.123 4.477c-.199-.011-.422-.011-.621.088-.201.1-.333.223-.464.347-.132.124-.279.271-.403.433-.124.162-.259.347-.296.409-.037.062-.074.123-.074.199s.025.162.074.249c.049.086.123.185.123.185l.012.012c.025.025.062.062.111.123.284.346.592.691.949 1.011.358.321.74.617 1.147.888.407.271.826.506 1.283.678.456.173.888.296 1.295.345.407.05.777.012 1.098-.111.32-.123.58-.345.727-.617.148-.271.222-.567.222-.888s-.074-.58-.197-.814c-.123-.234-.308-.432-.308-.432l-.025-.025c-.025-.025-.062-.037-.111-.062-.049-.024-.111-.049-.185-.074-.382-.123-.765-.247-1.147-.37-.382-.123-.765-.246-1.147-.369-.21-.074-.407-.123-.58-.148-.173-.025-.358-.025-.506.037-.148.062-.284.148-.395.271-.111.124-.197.272-.259.444-.061.173-.098.346-.098.518s.024.333.074.481c.049.148.135.296.259.432.123.136.271.259.444.37.173.111.345.197.518.259.222.074.456.123.703.148.247.024.493.012.728-.025.234-.037.469-.098.691-.185.222-.086.432-.197.63-.333.197-.136.37-.296.518-.481.148-.185.259-.395.333-.617.074-.222.111-.456.111-.703s-.049-.518-.148-.752-.234-.444-.407-.617c-.173-.173-.382-.321-.617-.444-.235-.123-.494-.222-.765-.284-.271-.062-.555-.086-.826-.086-.407 0-.814.062-1.196.185-.383.123-.74.296-1.049.518-.308.222-.58.481-.79.765l-.086.111c-.049.074-.123.148-.222.222-.099.074-.197.123-.271.148-.074.025-.136.025-.197.012z"/>
-                    </svg>Falar com Consultor
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- RODAPÉ -->
-    <footer class="bg-gray-900 text-white">
-        <div class="container mx-auto px-6 py-10">
-            <div class="text-center">
-                 <a href="#"><img src="https://iili.io/FTKiFAG.png" alt="Logo TIM" class="h-12 mx-auto mb-6" onerror="this.onerror=null; this.src='https://placehold.co/150x50/ffffff/1f2937?text=TIM';"></a>
-                <p class="text-gray-400">&copy; <span id="current-year"></span> Revendedor Autorizado TIM.</p>
-                <p class="text-xs text-gray-500 mt-3 max-w-md mx-auto">Este é o site de um revendedor autorizado TIM. As promoções e planos podem variar da oferta do site oficial TIM S.A.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Container de Agradecimento (começa escondido) -->
+    <div id="thank-you-wrapper" class="hidden w-full max-w-lg text-center">
+         <main class="floating-container p-8 md:p-12">
+            <!-- 
+            ██████╗  █████╗ ███╗   ██╗
+            ██╔══██╗██╔══██╗████╗  ██║
+            ██║  ██║███████║██╔██╗ ██║
+            ██║  ██║██╔══██║██║╚██╗██║
+            ██████╔╝██║  ██║██║ ╚████║
+            ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
+            -->
+            <h1 class="text-4xl font-bold text-[#E711F0] text-shadow-subtle mb-4">Proposta Recebida!</h1>
+            <p class="text-gray-200 mb-8 text-shadow-subtle">Obrigado pelo seu interesse! A nossa equipa irá analisar a sua proposta e entrará em contacto assim que possível.</p>
+            <button id="reset-button" class="bg-[#E711F0] hover:scale-105 hover:shadow-[0_0_20px_rgba(231,17,240,0.5)] transition-all inline-block text-white font-bold py-3 px-8 rounded-lg">
+                Enviar Nova Proposta
+            </button>
+        </main>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Setup Básico
-            const menuBtn = document.getElementById('menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (menuBtn) menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
-            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
-            
-            const yearSpan = document.getElementById('current-year');
-            if(yearSpan) yearSpan.textContent = new Date().getFullYear();
+            tsParticles.load("tsparticles", {
+                fpsLimit: 60, particles: { number: { value: 50, density: { enable: true, area: 800 } }, color: { value: "#E711F0" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true }, size: { value: 3, random: true }, links: { enable: true, distance: 150, color: "#E711F0", opacity: 0.2, width: 1 }, move: { enable: true, speed: 1.5, direction: "none", random: true, straight: false, outModes: { default: "out" } } }, interactivity: { events: { onhover: { enable: true, mode: "grab" }, resize: true }, modes: { grab: { distance: 140, links: { opacity: 0.5 } } } }, detectRetina: true,
+            });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in-up');
-                        entry.target.style.opacity = '1';
-                        entry.target.style.visibility = 'visible';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+            const formWrapper = document.getElementById('form-wrapper');
+            const thankYouWrapper = document.getElementById('thank-you-wrapper');
+            const form = document.getElementById('partnership-form');
+            const formFields = document.getElementById('form-fields');
+            const formOverlay = document.getElementById('form-block-overlay');
+            const platformContainer = document.querySelector('.platform-selector');
+            const instagramField = document.getElementById('instagram-field');
+            const tiktokField = document.getElementById('tiktok-field');
+            const submitButton = document.getElementById('submit-button');
+            const toast = document.getElementById('toast-message');
+            const resetButton = document.getElementById('reset-button');
 
-            // Lógica dos Planos Móveis
-            const planDetails = {
-                '30gb': { basePrice: 52.99, deezerPrice: 57.99, isDeezerActive: false },
-                '50gb': { basePrice: 69.99, deezerPrice: 75.99, isDeezerActive: false },
-                '100gb': { basePrice: 99.99, deezerPrice: 105.00, isDeezerActive: false }
-            };
-            const wppBaseUrl = "https://api.whatsapp.com/send?phone=5535984510438&text=";
-
-            function updatePlanView(planId) {
-                const planData = planDetails[planId];
-                const card = document.querySelector(`.plan-card[data-plan-id="${planId}"]`);
-                if (!card) return;
-
-                const ui = {
-                    price: card.querySelector('.price-element'),
-                    suffix: card.querySelector('.price-suffix'),
-                    cta: card.querySelector('.cta-button'),
-                    splash: card.querySelector('.splash-bg'),
-                    title: card.querySelector('.plan-title'),
-                    deezerText: card.querySelector('.deezer-text'),
-                    toggle: card.querySelector('.deezer-toggle'),
-                    handle: card.querySelector('.deezer-handle')
-                };
-
-                const currentPrice = planData.isDeezerActive ? planData.deezerPrice : planData.basePrice;
-                const [integer, decimal] = currentPrice.toFixed(2).split('.');
-                ui.price.innerHTML = `R$ ${integer}<span class="text-2xl">,${decimal}</span>`;
-                
-                const planName = ui.title.textContent;
-                let wppMessage;
-                
-                ui.title.classList.remove('text-white', 'text-gray-800');
-                ui.price.classList.remove('text-white', 'text-tim-blue');
-                ui.suffix.classList.remove('text-gray-200', 'text-gray-500');
-                ui.deezerText.classList.remove('text-white', 'text-gray-600');
-                
-                if (planData.isDeezerActive) {
-                    wppMessage = `Olá! Tenho interesse no plano ${planName} com Deezer Premium por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    ui.splash.classList.add('splash-active');
-                    ui.splash.style.opacity = '1';
-                    ui.title.classList.add('text-white');
-                    ui.price.classList.add('text-white');
-                    ui.suffix.classList.add('text-gray-200');
-                    ui.deezerText.classList.add('text-white');
-                    ui.toggle.classList.remove('bg-gray-200');
-                    ui.toggle.classList.add('bg-deezer-green');
-                    ui.handle.style.transform = 'translateX(2.5rem)';
-                } else {
-                    wppMessage = `Olá! Tenho interesse no plano ${planName} por R$${currentPrice.toFixed(2).replace('.', ',')}. Poderia me dar mais detalhes?`;
-                    ui.splash.classList.remove('splash-active');
-                    ui.splash.style.opacity = '0';
-                    ui.title.classList.add('text-gray-800');
-                    ui.price.classList.add('text-tim-blue');
-                    ui.suffix.classList.add('text-gray-500');
-                    ui.deezerText.classList.add('text-gray-600');
-                    ui.toggle.classList.add('bg-gray-200');
-                    ui.toggle.classList.remove('bg-deezer-green');
-                    ui.handle.style.transform = 'translateX(0)';
+            platformContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('.platform-button');
+                if (button) {
+                    button.classList.toggle('active');
+                    const anyActive = platformContainer.querySelector('.platform-button.active');
+                    formFields.disabled = !anyActive;
+                    submitButton.disabled = !anyActive;
+                    formOverlay.classList.toggle('hidden', anyActive);
+                    updatePlatformFields();
                 }
-                
-                ui.cta.href = wppBaseUrl + encodeURIComponent(wppMessage);
+            });
+
+            formOverlay.addEventListener('click', () => {
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000); 
+            });
+            
+            function updatePlatformFields() {
+                const instagramActive = document.querySelector('.platform-button[data-platform="instagram"]').classList.contains('active');
+                const tiktokActive = document.querySelector('.platform-button[data-platform="tiktok"]').classList.contains('active');
+                instagramField.classList.toggle('hidden', !instagramActive);
+                tiktokField.classList.toggle('hidden', !tiktokActive);
             }
 
-            document.querySelectorAll('.plan-card').forEach(card => {
-                const planId = card.dataset.planId;
-                if (planDetails[planId]) {
-                    updatePlanView(planId); // Initialize
-                    const deezerToggle = card.querySelector('.deezer-toggle');
-                    if(deezerToggle) {
-                        deezerToggle.addEventListener('click', () => {
-                            planDetails[planId].isDeezerActive = !planDetails[planId].isDeezerActive;
-                            updatePlanView(planId);
-                        });
+            // --- FUNÇÃO PARA OBTER GEOLOCALIZAÇÃO ---
+            function getGeolocation() {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) {
+                        reject(new Error('Geolocalização não é suportada pelo seu navegador.'));
+                    } else {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => resolve(position),
+                            (error) => reject(error)
+                        );
                     }
+                });
+            }
+
+            async function handleSubmit(event) {
+                event.preventDefault();
+                submitButton.disabled = true;
+                submitButton.textContent = 'A obter dados...';
+                
+                const data = new FormData(event.target);
+                const selected = Array.from(platformContainer.querySelectorAll('.active')).map(b => b.dataset.platform);
+                data.set('Plataformas Selecionadas', selected.join(', '));
+
+                // Obter IP
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    if (ipResponse.ok) {
+                        const ipData = await ipResponse.json();
+                        data.set('Endereço IP', ipData.ip);
+                    }
+                } catch { data.set('Endereço IP', 'Não foi possível obter'); }
+                
+                // Obter Geolocalização
+                try {
+                    const position = await getGeolocation();
+                    const { latitude, longitude } = position.coords;
+                    const mapsLink = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    data.set('Geolocalização', mapsLink);
+                } catch (error) {
+                    let geoError = 'Não foi possível obter.';
+                    if (error.code === 1) geoError = 'Permissão negada pelo utilizador.';
+                    data.set('Geolocalização', geoError);
                 }
+
+                submitButton.textContent = 'A enviar...';
+
+                // Enviar para o Formspree
+                try {
+                    const response = await fetch('https://formspree.io/f/xldnzdje', {
+                        method: 'POST',
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        formWrapper.classList.add('fade-out');
+                        setTimeout(() => {
+                            formWrapper.classList.add('hidden');
+                            thankYouWrapper.classList.remove('hidden');
+                        }, 500);
+                    } else { throw new Error('Network response was not ok.'); }
+                } catch (error) {
+                    alert('Ocorreu um erro ao enviar a proposta. Por favor, tente novamente.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Enviar Proposta de Parceria';
+                }
+            }
+            form.addEventListener("submit", handleSubmit);
+
+            resetButton.addEventListener('click', () => {
+                form.reset();
+                platformContainer.querySelectorAll('.active').forEach(b => b.classList.remove('active'));
+                formFields.disabled = true;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviar Proposta de Parceria';
+                formOverlay.classList.remove('hidden');
+                updatePlatformFields();
+
+                thankYouWrapper.classList.add('hidden');
+                formWrapper.classList.remove('hidden', 'fade-out');
             });
         });
     </script>
