@@ -45,7 +45,6 @@
             bottom: 20px;
             right: 20px;
             background-color: #25D366;
-            color: white;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -60,6 +59,10 @@
         #chat-widget-button:hover {
             transform: scale(1.1);
         }
+        #chat-widget-button img {
+            width: 32px;
+            height: 32px;
+        }
 
         #chat-window {
             position: fixed;
@@ -69,8 +72,10 @@
             max-width: 370px;
             height: 70vh;
             max-height: 500px;
-            background-color: #E5DDD5;
-            background-image: url('https://i.imgur.com/y4aMvI8.png'); /* Fundo padrão WhatsApp */
+            /* Nova imagem de fundo */
+            background-image: url('https://iili.io/FWtwY0J.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             display: flex;
@@ -91,6 +96,7 @@
             padding: 10px 15px;
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
         .chat-header img {
             width: 40px;
@@ -112,12 +118,13 @@
         }
 
         .chat-message {
-            max-width: 80%;
+            max-width: 85%;
             padding: 8px 12px;
             border-radius: 8px;
             margin-bottom: 8px;
             line-height: 1.4;
             font-size: 0.9rem;
+            word-wrap: break-word;
         }
         .bot-message {
             background-color: white;
@@ -130,10 +137,26 @@
             box-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
 
+        /* Estilo para opções clicáveis */
+        .chat-option {
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 10px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        .chat-option:hover {
+            background-color: #f0f0f0;
+            border-color: #ddd;
+        }
+
         .chat-input-area {
             display: flex;
             padding: 10px;
             background-color: #f0f0f0;
+            flex-shrink: 0;
         }
         .chat-input-area input {
             flex-grow: 1;
@@ -154,11 +177,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+        }
+        .chat-input-area button img {
+            width: 20px;
+            height: 20px;
         }
         .typing-indicator {
             font-style: italic;
-            color: #888;
+            color: #555;
+            background: rgba(255,255,255,0.7);
+            padding: 2px 8px;
+            border-radius: 10px;
             font-size: 0.8rem;
+            align-self: flex-start;
         }
     </style>
 </head>
@@ -298,11 +330,7 @@
 
     <!-- --- ESTRUTURA DO CHATBOT --- -->
     <div id="chat-widget-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm1.5 0a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V5.5a.5.5 0 00-.5-.5h-11z" />
-            <path d="M3 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zM16 14.5a.5.5 0 01-.5.5h-13a.5.5 0 010-1h13a.5.5 0 01.5.5z" />
-            <path fill-rule="evenodd" d="M18 5v1.5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5h.5a.5.5 0 01.5.5zM2 5v1.5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5H2a.5.5 0 01.5.5z" />
-        </svg>
+        <img src="https://cdn-icons-png.flaticon.com/512/5962/5962463.png" alt="WhatsApp Icon">
     </div>
 
     <div id="chat-window" class="hidden">
@@ -316,15 +344,13 @@
         <div id="chat-messages">
             <!-- As mensagens aparecerão aqui -->
         </div>
-        <div id="typing-indicator" class="px-4 pb-2 hidden">
+        <div id="typing-indicator" class="hidden px-3 pb-2">
             <span class="typing-indicator">digitando...</span>
         </div>
         <form id="chat-form" class="chat-input-area">
             <input type="text" id="chat-input" placeholder="Digite sua mensagem..." autocomplete="off">
             <button type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009.894 15V4.106A1 1 0 009 3.106l-5 1.428a1 1 0 00-.894 1.409l7 14a1 1 0 001.788 0l7-14a1 1 0 00-1.169-1.409l-5 1.428A1 1 0 0010.106 5H11a1 1 0 00.894-1.447l-7-14z" />
-                </svg>
+                <img src="https://cdn-icons-png.flaticon.com/512/60/60525.png" alt="Send Icon">
             </button>
         </form>
     </div>
@@ -352,7 +378,7 @@
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
-        // --- SCRIPT DO CHATBOT ---
+        // --- SCRIPT DO CHATBOT AVANÇADO ---
 
         // Elementos do DOM
         const chatWidgetButton = document.getElementById('chat-widget-button');
@@ -364,6 +390,7 @@
 
         // Estado da conversa
         let conversationState = 'initial';
+        const menuKeywords = ['opção', 'opcoes', 'opçoes', 'opções', 'quais', 'menu', 'lista', 'ver', 'mostrar'];
 
         // Abrir/Fechar janela do chat
         chatWidgetButton.addEventListener('click', () => {
@@ -375,23 +402,35 @@
 
         // Iniciar a conversa
         function startConversation() {
-            addBotMessage("Olá! 👋 Sou o assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito. Como posso ajudar?");
-            setTimeout(() => {
-                const initialMenu = `
-                    Digite o número da opção desejada:
-                    <br><strong>1.</strong> Quero conhecer os planos
-                    <br><strong>2.</strong> Já sou cliente e preciso de ajuda
-                    <br><strong>3.</strong> Falar com um atendente humano
-                `;
-                addBotMessage(initialMenu);
-            }, 1200);
+            addBotMessage("Olá! 👋 Sou o assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito.");
+            setTimeout(showInitialMenu, 1200);
+        }
+        
+        function showInitialMenu() {
+             const initialMenu = `
+                Como posso te ajudar hoje?
+                <div class="chat-option" data-value="1"><strong>1.</strong> Quero conhecer os planos</div>
+                <div class="chat-option" data-value="2"><strong>2.</strong> Já sou cliente e preciso de ajuda</div>
+                <div class="chat-option" data-value="3"><strong>3.</strong> Falar com um atendente humano</div>
+            `;
+            addBotMessage(initialMenu);
+        }
+        
+        function showPlanMenu() {
+            const planMenu = `
+                Ótima escolha! Temos opções incríveis para você:
+                <div class="chat-option" data-value="1"><strong>1.</strong> TIM Controle (móvel)</div>
+                <div class="chat-option" data-value="2"><strong>2.</strong> TIM Black (móvel)</div>
+                <div class="chat-option" data-value="3"><strong>3.</strong> TIM Ultrafibra (residencial)</div>
+            `;
+            addBotMessage(planMenu);
         }
 
         // Adicionar mensagem na tela
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message', `${sender}-message`);
-            messageElement.innerHTML = text; // Usamos innerHTML para renderizar as tags <br> e <strong>
+            messageElement.innerHTML = text;
             chatMessages.appendChild(messageElement);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -401,78 +440,104 @@
             setTimeout(() => {
                 typingIndicator.classList.add('hidden');
                 addMessage(text, 'bot');
-            }, 800 + Math.random() * 500); // Simula um tempo de digitação
+            }, 800 + Math.random() * 500);
         }
 
-        // Lidar com o envio de mensagem pelo usuário
+        // Lidar com o envio de mensagem pelo usuário (digitação)
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const userInput = chatInput.value.trim();
             if (!userInput) return;
-
-            addMessage(userInput, 'user');
-            chatInput.value = '';
-            handleBotResponse(userInput);
+            processUserInput(userInput);
         });
+        
+        // Lidar com o clique nas opções
+        chatMessages.addEventListener('click', (e) => {
+            const option = e.target.closest('.chat-option');
+            if (option && option.dataset.value) {
+                const value = option.dataset.value;
+                const text = option.textContent.trim();
+                addMessage(text, 'user'); // Mostra o texto da opção como mensagem do usuário
+                handleBotResponse(value); // Processa o valor numérico
+            }
+        });
+
+        function processUserInput(input) {
+            addMessage(input, 'user');
+            chatInput.value = '';
+            handleBotResponse(input);
+        }
 
         // Lógica de resposta do Bot
         function handleBotResponse(userInput) {
             const input = userInput.toLowerCase();
+            const isAskingForMenu = menuKeywords.some(keyword => input.includes(keyword));
 
             switch (conversationState) {
                 case 'initial':
+                    if (isAskingForMenu) {
+                        showInitialMenu();
+                        return;
+                    }
                     if (input.includes('1') || input.includes('plano')) {
                         conversationState = 'selecting_plan';
-                        const planMenu = `
-                            Ótima escolha! Temos opções incríveis para você:
-                            <br><strong>A.</strong> TIM Controle (móvel)
-                            <br><strong>B.</strong> TIM Black (móvel)
-                            <br><strong>C.</strong> TIM Ultrafibra (residencial)
-                            <br>
-                            <br>Qual deles te interessa mais? (Digite A, B ou C)
-                        `;
-                        addBotMessage(planMenu);
+                        showPlanMenu();
                     } else if (input.includes('2') || input.includes('cliente')) {
                         addBotMessage("Entendido. Para suporte a clientes, por favor, acesse o app Meu TIM ou ligue para *144. Por aqui, só consigo ajudar com a contratação de novos planos.");
-                        setTimeout(() => startConversation(), 3000); // Reinicia
+                        setTimeout(showInitialMenu, 3500);
                     } else if (input.includes('3') || input.includes('atendente')) {
                         redirectToWhatsapp("Olá! Vim pelo site e gostaria de falar com um atendente.");
                     } else {
-                        addBotMessage("Desculpe, não entendi. Por favor, escolha uma das opções (1, 2 ou 3).");
+                        addBotMessage("Desculpe, não entendi. Por favor, escolha uma das opções abaixo.");
+                        showInitialMenu();
                     }
                     break;
                 
                 case 'selecting_plan':
-                    if (input === 'a') {
+                    if (isAskingForMenu) {
+                        showPlanMenu();
+                        return;
+                    }
+                    let planName = '';
+                    if (input.includes('1') || input.includes('controle')) {
+                        planName = 'TIM Controle';
+                    } else if (input.includes('2') || input.includes('black')) {
+                        planName = 'TIM Black';
+                    } else if (input.includes('3') || input.includes('fibra') || input.includes('ultra')) {
+                        planName = 'TIM Ultrafibra';
+                    }
+
+                    if (planName) {
                         conversationState = 'confirm_plan';
-                        addBotMessage("O <strong>TIM Controle</strong> é perfeito para quem quer ter controle total dos gastos, com redes sociais e ligações ilimitadas. Quer contratar ou saber mais?");
-                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
-                    } else if (input === 'b') {
-                        conversationState = 'confirm_plan';
-                        addBotMessage("O <strong>TIM Black</strong> é a nossa experiência definitiva, com muito mais internet, bônus para vídeos e benefícios internacionais. Quer contratar ou saber mais?");
-                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
-                    } else if (input === 'c') {
-                        conversationState = 'confirm_plan';
-                        addBotMessage("A <strong>TIM Ultrafibra</strong> é a nossa internet residencial com altíssima velocidade e estabilidade para toda a família. Quer contratar ou saber mais?");
-                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
+                        addBotMessage(`O <strong>${planName}</strong> é uma excelente opção! Deseja iniciar a contratação ou saber mais detalhes?`);
+                        const confirmationMenu = `
+                            <div class="chat-option" data-value="sim"><strong>1.</strong> Sim, quero contratar!</div>
+                            <div class="chat-option" data-value="não"><strong>2.</strong> Não, voltar ao início.</div>
+                        `;
+                        addBotMessage(confirmationMenu);
                     } else {
-                        addBotMessage("Opção inválida. Por favor, digite A, B ou C para escolher um dos planos.");
+                        addBotMessage("Opção inválida. Por favor, escolha um dos planos abaixo.");
+                        showPlanMenu();
                     }
                     break;
 
                 case 'confirm_plan':
-                    if (input === 'sim') {
+                     if (isAskingForMenu) {
+                        const confirmationMenu = `
+                            <div class="chat-option" data-value="sim"><strong>1.</strong> Sim, quero contratar!</div>
+                            <div class="chat-option" data-value="não"><strong>2.</strong> Não, voltar ao início.</div>
+                        `;
+                        addBotMessage(confirmationMenu);
+                        return;
+                    }
+                    if (input.includes('1') || input.includes('sim')) {
                         redirectToWhatsapp("Olá! Vim pelo site e quero contratar um plano TIM!");
-                    } else {
+                    } else if (input.includes('2') || input.includes('não') || input.includes('nao')) {
                         conversationState = 'initial';
                         addBotMessage("Tudo bem. Se mudar de ideia, estou por aqui! Como mais posso te ajudar?");
-                        setTimeout(() => {
-                            const initialMenu = `
-                                <strong>1.</strong> Conhecer os planos
-                                <br><strong>2.</strong> Falar com um atendente
-                            `;
-                            addBotMessage(initialMenu);
-                        }, 1200);
+                        setTimeout(showInitialMenu, 1500);
+                    } else {
+                        addBotMessage("Não entendi sua resposta. Por favor, escolha uma das opções (1 ou 2).");
                     }
                     break;
             }
@@ -484,12 +549,10 @@
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
             
-            addBotMessage(`Excelente! Para garantir um atendimento personalizado e seguro, vamos finalizar no WhatsApp. <a href="${whatsappUrl}" target="_blank" class="font-bold text-blue-600 underline">Clique aqui para ser redirecionado.</a>`);
+            addBotMessage(`Excelente! Para garantir um atendimento personalizado e seguro, vamos finalizar no WhatsApp. <br><br> <a href="${whatsappUrl}" target="_blank" class="font-bold text-blue-600 underline">Clique aqui para ser redirecionado e falar com um consultor.</a>`);
             
-            // Abre o WhatsApp em uma nova aba
             setTimeout(() => window.open(whatsappUrl, '_blank'), 1000);
         }
-
     </script>
 
 </body>
