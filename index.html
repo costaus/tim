@@ -132,16 +132,24 @@
             flex-direction: column;
         }
 
-        /* Animação das mensagens */
-        @keyframes slide-in-fade-in {
+        /* NOVAS ANIMAÇÕES PARA CORRIGIR O BUG DE CORTE */
+        @keyframes message-in {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: scale(0.85);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1);
             }
+        }
+        .bot-message {
+            transform-origin: bottom left;
+            animation: message-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .user-message {
+            transform-origin: bottom right;
+            animation: message-in 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação mais lenta para envio */
         }
         .chat-message {
             max-width: 85%;
@@ -151,17 +159,13 @@
             line-height: 1.4;
             font-size: 0.9rem;
             word-wrap: break-word;
-            animation: slide-in-fade-in 0.4s ease-out;
-        }
-        .bot-message {
-            background-color: white;
+            background-color: white; /* Cor de fundo padrão */
             align-self: flex-start;
             box-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
         .user-message {
             background-color: #DCF8C6;
             align-self: flex-end;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
 
         .chat-option {
@@ -409,7 +413,7 @@
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
-        // --- SCRIPT DO CHATBOT COM ANIMAÇÃO E SOM ---
+        // --- SCRIPT DO CHATBOT COM ANIMAÇÃO E SOM (v2) ---
 
         // Elementos do DOM
         const chatWidgetButton = document.getElementById('chat-widget-button');
@@ -435,15 +439,23 @@
         // Inicializar sons e controle de som
         function setupAudio() {
             if (window.Tone) {
-                sendSound = new Tone.Synth({
-                    oscillator: { type: 'sine' },
-                    envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 0.1 }
+                // Som de envio (pop suave)
+                sendSound = new Tone.MembraneSynth({
+                    pitchDecay: 0.02,
+                    octaves: 3,
+                    envelope: { attack: 0.001, decay: 0.2, sustain: 0.01, release: 0.1 }
                 }).toDestination();
 
-                receiveSound = new Tone.Synth({
-                    oscillator: { type: 'triangle' },
-                    envelope: { attack: 0.005, decay: 0.2, sustain: 0.1, release: 0.2 }
+                // Som de recebimento (melódico)
+                const receiveSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.01, decay: 0.1, sustain: 0.2, release: 0.4 }
                 }).toDestination();
+                
+                receiveSound = new Tone.Sequence((time, note) => {
+                    receiveSynth.triggerAttackRelease(note, '16n', time);
+                }, ['E5', 'G5', 'C6'], '8n');
+                receiveSound.loop = false;
             }
             updateSoundIcon();
         }
@@ -461,7 +473,6 @@
         chatWidgetButton.addEventListener('click', () => {
             chatWindow.classList.toggle('hidden');
             if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
-                // Inicia o contexto de áudio com um gesto do usuário
                 if (Tone.context.state !== 'running') {
                     Tone.start();
                 }
@@ -508,8 +519,8 @@
         function addBotMessage(text) {
             typingIndicator.classList.remove('hidden');
             setTimeout(() => {
-                if (isSoundEnabled && receiveSound) {
-                    receiveSound.triggerAttackRelease('C4', '0.2');
+                if (isSoundEnabled && receiveSound && receiveSound.state !== 'started') {
+                    receiveSound.start();
                 }
                 typingIndicator.classList.add('hidden');
                 addMessage(text, 'bot');
@@ -518,7 +529,7 @@
         
         function processUserInput(input) {
             if (isSoundEnabled && sendSound) {
-                sendSound.triggerAttackRelease('G4', '0.1');
+                sendSound.triggerAttackRelease("C2", "8n", Tone.now());
             }
             addMessage(input, 'user');
             chatInput.value = '';
@@ -539,14 +550,14 @@
                 const value = option.dataset.value;
                 const text = option.textContent.trim();
                 if (isSoundEnabled && sendSound) {
-                    sendSound.triggerAttackRelease('G4', '0.1');
+                    sendSound.triggerAttackRelease("C2", "8n", Tone.now());
                 }
                 addMessage(text, 'user');
                 handleBotResponse(value);
             }
         });
 
-        // Lógica de resposta do Bot
+        // Lógica de resposta do Bot (inalterada)
         function handleBotResponse(userInput) {
             const input = userInput.toLowerCase();
             const isAskingForMenu = menuKeywords.some(keyword => input.includes(keyword));
