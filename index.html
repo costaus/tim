@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
     
+    <!-- Tone.js para efeitos sonoros -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    
     <!-- Favicon (ícone da aba do navegador) -->
     <link rel="icon" href="https://i.imgur.com/b3c5a7s.png" type="image/png">
 
@@ -28,7 +31,7 @@
         .accent-yellow { background-color: #fde047; color: #0b3d86; }
         .accent-yellow:hover { background-color: #facc15; }
 
-        /* Animação de fade-in */
+        /* Animação de fade-in para seções */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -72,7 +75,6 @@
             max-width: 370px;
             height: 70vh;
             max-height: 500px;
-            /* Nova imagem de fundo */
             background-image: url('https://iili.io/FWtwY0J.jpg');
             background-size: cover;
             background-position: center;
@@ -96,7 +98,12 @@
             padding: 10px 15px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             flex-shrink: 0;
+        }
+        .chat-header-info {
+            display: flex;
+            align-items: center;
         }
         .chat-header img {
             width: 40px;
@@ -108,6 +115,14 @@
         }
         .chat-header-info h3 { font-weight: bold; }
         .chat-header-info p { font-size: 0.8rem; opacity: 0.9; }
+        #sound-toggle {
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        #sound-toggle:hover {
+            opacity: 1;
+        }
 
         #chat-messages {
             flex-grow: 1;
@@ -117,6 +132,17 @@
             flex-direction: column;
         }
 
+        /* Animação das mensagens */
+        @keyframes slide-in-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         .chat-message {
             max-width: 85%;
             padding: 8px 12px;
@@ -125,6 +151,7 @@
             line-height: 1.4;
             font-size: 0.9rem;
             word-wrap: break-word;
+            animation: slide-in-fade-in 0.4s ease-out;
         }
         .bot-message {
             background-color: white;
@@ -137,7 +164,6 @@
             box-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
 
-        /* Estilo para opções clicáveis */
         .chat-option {
             background-color: #fcfcfc;
             border: 1px solid #eee;
@@ -335,10 +361,15 @@
 
     <div id="chat-window" class="hidden">
         <div class="chat-header">
-            <img src="https://iili.io/FWLZI87.jpg" alt="Logo TIM">
             <div class="chat-header-info">
-                <h3>Assistente Virtual TIM</h3>
-                <p>Online</p>
+                <img src="https://iili.io/FWLZI87.jpg" alt="Logo TIM">
+                <div>
+                    <h3>Assistente Virtual TIM</h3>
+                    <p>Online</p>
+                </div>
+            </div>
+            <div id="sound-toggle">
+                <!-- Ícones de Som (serão trocados via JS) -->
             </div>
         </div>
         <div id="chat-messages">
@@ -378,7 +409,7 @@
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
-        // --- SCRIPT DO CHATBOT AVANÇADO ---
+        // --- SCRIPT DO CHATBOT COM ANIMAÇÃO E SOM ---
 
         // Elementos do DOM
         const chatWidgetButton = document.getElementById('chat-widget-button');
@@ -387,20 +418,59 @@
         const chatForm = document.getElementById('chat-form');
         const chatInput = document.getElementById('chat-input');
         const typingIndicator = document.getElementById('typing-indicator');
+        const soundToggle = document.getElementById('sound-toggle');
+
+        // Ícones de som
+        const soundOnIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>`;
+        const soundOffIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" /><path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>`;
+
+        // Configuração de Som
+        let isSoundEnabled = true;
+        let sendSound, receiveSound;
 
         // Estado da conversa
         let conversationState = 'initial';
         const menuKeywords = ['opção', 'opcoes', 'opçoes', 'opções', 'quais', 'menu', 'lista', 'ver', 'mostrar'];
 
+        // Inicializar sons e controle de som
+        function setupAudio() {
+            if (window.Tone) {
+                sendSound = new Tone.Synth({
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 0.1 }
+                }).toDestination();
+
+                receiveSound = new Tone.Synth({
+                    oscillator: { type: 'triangle' },
+                    envelope: { attack: 0.005, decay: 0.2, sustain: 0.1, release: 0.2 }
+                }).toDestination();
+            }
+            updateSoundIcon();
+        }
+        
+        function updateSoundIcon() {
+            soundToggle.innerHTML = isSoundEnabled ? soundOnIcon : soundOffIcon;
+        }
+
+        soundToggle.addEventListener('click', () => {
+            isSoundEnabled = !isSoundEnabled;
+            updateSoundIcon();
+        });
+
         // Abrir/Fechar janela do chat
         chatWidgetButton.addEventListener('click', () => {
             chatWindow.classList.toggle('hidden');
             if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
+                // Inicia o contexto de áudio com um gesto do usuário
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                setupAudio();
                 startConversation();
             }
         });
 
-        // Iniciar a conversa
+        // Funções de Menu
         function startConversation() {
             addBotMessage("Olá! 👋 Sou o assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito.");
             setTimeout(showInitialMenu, 1200);
@@ -426,7 +496,7 @@
             addBotMessage(planMenu);
         }
 
-        // Adicionar mensagem na tela
+        // Funções de Mensagem
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
             messageElement.classList.add('chat-message', `${sender}-message`);
@@ -438,12 +508,24 @@
         function addBotMessage(text) {
             typingIndicator.classList.remove('hidden');
             setTimeout(() => {
+                if (isSoundEnabled && receiveSound) {
+                    receiveSound.triggerAttackRelease('C4', '0.2');
+                }
                 typingIndicator.classList.add('hidden');
                 addMessage(text, 'bot');
             }, 800 + Math.random() * 500);
         }
+        
+        function processUserInput(input) {
+            if (isSoundEnabled && sendSound) {
+                sendSound.triggerAttackRelease('G4', '0.1');
+            }
+            addMessage(input, 'user');
+            chatInput.value = '';
+            handleBotResponse(input);
+        }
 
-        // Lidar com o envio de mensagem pelo usuário (digitação)
+        // Event Listeners
         chatForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const userInput = chatInput.value.trim();
@@ -451,22 +533,18 @@
             processUserInput(userInput);
         });
         
-        // Lidar com o clique nas opções
         chatMessages.addEventListener('click', (e) => {
             const option = e.target.closest('.chat-option');
             if (option && option.dataset.value) {
                 const value = option.dataset.value;
                 const text = option.textContent.trim();
-                addMessage(text, 'user'); // Mostra o texto da opção como mensagem do usuário
-                handleBotResponse(value); // Processa o valor numérico
+                if (isSoundEnabled && sendSound) {
+                    sendSound.triggerAttackRelease('G4', '0.1');
+                }
+                addMessage(text, 'user');
+                handleBotResponse(value);
             }
         });
-
-        function processUserInput(input) {
-            addMessage(input, 'user');
-            chatInput.value = '';
-            handleBotResponse(input);
-        }
 
         // Lógica de resposta do Bot
         function handleBotResponse(userInput) {
