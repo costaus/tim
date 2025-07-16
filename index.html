@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIM Planos - Seu Consultor Online</title>
+    <title>TIM Planos</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -132,25 +132,24 @@
             flex-direction: column;
         }
 
-        /* ANIMAÇÃO CORRIGIDA PARA EVITAR CORTE DE TEXTO */
-        @keyframes grow-and-fade-in {
+        /* NOVAS ANIMAÇÕES PARA CORRIGIR O BUG DE CORTE */
+        @keyframes message-in {
             from {
                 opacity: 0;
-                max-height: 0;
-                margin-bottom: 0;
-                padding-top: 0;
-                padding-bottom: 0;
-            }
-            50% {
-                max-height: 300px; /* Permite que a altura se ajuste */
+                transform: scale(0.85);
             }
             to {
                 opacity: 1;
-                max-height: 300px; /* Garante que a altura final seja suficiente */
-                margin-bottom: 8px;
-                padding-top: 8px;
-                padding-bottom: 8px;
+                transform: scale(1);
             }
+        }
+        .bot-message {
+            transform-origin: bottom left;
+            animation: message-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .user-message {
+            transform-origin: bottom right;
+            animation: message-in 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Animação mais lenta para envio */
         }
         .chat-message {
             max-width: 85%;
@@ -160,13 +159,9 @@
             line-height: 1.4;
             font-size: 0.9rem;
             word-wrap: break-word;
-            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-            overflow: hidden; /* Essencial para a animação de max-height */
-            animation: grow-and-fade-in 0.45s ease-out;
-        }
-        .bot-message {
-            background-color: white;
+            background-color: white; /* Cor de fundo padrão */
             align-self: flex-start;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
         }
         .user-message {
             background-color: #DCF8C6;
@@ -418,7 +413,7 @@
         }, { threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
-        // --- SCRIPT DO CHATBOT COM ANIMAÇÃO E SOM (v3 - CORRIGIDO) ---
+        // --- SCRIPT DO CHATBOT COM ANIMAÇÃO E SOM (v2) ---
 
         // Elementos do DOM
         const chatWidgetButton = document.getElementById('chat-widget-button');
@@ -515,7 +510,6 @@
         // Funções de Mensagem
         function addMessage(text, sender) {
             const messageElement = document.createElement('div');
-            // A classe de animação é aplicada diretamente no CSS
             messageElement.classList.add('chat-message', `${sender}-message`);
             messageElement.innerHTML = text;
             chatMessages.appendChild(messageElement);
