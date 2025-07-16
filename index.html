@@ -17,27 +17,17 @@
     <link rel="icon" href="https://i.imgur.com/b3c5a7s.png" type="image/png">
 
     <style>
-        /* Estilos personalizados e configuração do Tailwind */
+        /* Estilos principais */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Um cinza claro para o fundo */
+            background-color: #f0f2f5;
         }
-        .main-blue {
-            background-color: #0b3d86;
-        }
-        .text-main-blue {
-            color: #0b3d86;
-        }
-        .border-main-blue {
-            border-color: #0b3d86;
-        }
-        .accent-yellow {
-            background-color: #fde047; /* Amarelo vibrante para destaque */
-            color: #0b3d86;
-        }
-        .accent-yellow:hover {
-            background-color: #facc15;
-        }
+        .main-blue { background-color: #0b3d86; }
+        .text-main-blue { color: #0b3d86; }
+        .border-main-blue { border-color: #0b3d86; }
+        .accent-yellow { background-color: #fde047; color: #0b3d86; }
+        .accent-yellow:hover { background-color: #facc15; }
+
         /* Animação de fade-in */
         .fade-in-section {
             opacity: 0;
@@ -48,40 +38,151 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* --- ESTILOS DO CHATBOT --- */
+        #chat-widget-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+        #chat-widget-button:hover {
+            transform: scale(1.1);
+        }
+
+        #chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 90%;
+            max-width: 370px;
+            height: 70vh;
+            max-height: 500px;
+            background-color: #E5DDD5;
+            background-image: url('https://i.imgur.com/y4aMvI8.png'); /* Fundo padrão WhatsApp */
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform-origin: bottom right;
+        }
+        #chat-window.hidden {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .chat-header {
+            background-color: #075E54;
+            color: white;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: white;
+            padding: 2px;
+        }
+        .chat-header-info h3 { font-weight: bold; }
+        .chat-header-info p { font-size: 0.8rem; opacity: 0.9; }
+
+        #chat-messages {
+            flex-grow: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        .bot-message {
+            background-color: white;
+            align-self: flex-start;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+        .user-message {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .chat-input-area {
+            display: flex;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+        .chat-input-area input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 8px 15px;
+            outline: none;
+        }
+        .chat-input-area button {
+            background-color: #128C7E;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .typing-indicator {
+            font-style: italic;
+            color: #888;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <!-- Cabeçalho -->
+    <!-- Conteúdo do site (inalterado) -->
     <header id="header" class="main-blue text-white shadow-lg sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <!-- Logo -->
             <a href="#" class="flex items-center">
-                <img src="https://iili.io/FWLZI87.jpg" 
-                     onerror="this.onerror=null; this.src='https://placehold.co/120x40/0b3d86/FFFFFF?text=TIM+Planos';"
-                     alt="Logo TIM Planos" class="h-10 w-auto bg-white rounded-md p-1">
+                <img src="https://iili.io/FWLZI87.jpg" onerror="this.onerror=null; this.src='https://placehold.co/120x40/0b3d86/FFFFFF?text=TIM+Planos';" alt="Logo TIM Planos" class="h-10 w-auto bg-white rounded-md p-1">
                 <span class="ml-3 font-bold text-lg hidden sm:block">Consultor Autorizado</span>
             </a>
-            
-            <!-- Navegação para Desktop -->
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#planos" class="hover:text-gray-300 transition-colors">Planos</a>
                 <a href="#vantagens" class="hover:text-gray-300 transition-colors">Vantagens</a>
                 <a href="#contato" class="hover:text-gray-300 transition-colors">Contato</a>
             </nav>
-
-            <!-- Botão de Contato Principal -->
             <a href="https://wa.me/5511999998888?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20planos%20TIM." target="_blank" class="hidden md:block accent-yellow font-bold py-2 px-5 rounded-full transition-transform duration-300 hover:scale-105">
                 Contrate Já
             </a>
-
-            <!-- Menu Mobile (Hamburguer) -->
             <button id="mobile-menu-button" class="md:hidden focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-
-        <!-- Menu Mobile (Dropdown) -->
         <div id="mobile-menu" class="hidden md:hidden bg-blue-800">
             <a href="#planos" class="block text-center py-3 px-4 text-sm hover:bg-blue-700 transition-colors">Planos</a>
             <a href="#vantagens" class="block text-center py-3 px-4 text-sm hover:bg-blue-700 transition-colors">Vantagens</a>
@@ -91,8 +192,6 @@
             </a>
         </div>
     </header>
-
-    <!-- Seção Principal (Hero) -->
     <main>
         <section class="relative text-white text-center py-20 md:py-32 px-6" style="background: linear-gradient(rgba(11, 61, 134, 0.85), rgba(11, 61, 134, 0.85)), url('https://images.unsplash.com/photo-1554435493-93422e8220c8?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;">
             <div class="container mx-auto">
@@ -103,17 +202,13 @@
                 </a>
             </div>
         </section>
-
-        <!-- Seção de Planos -->
         <section id="planos" class="py-20">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 fade-in-section">
                     <h2 class="text-3xl md:text-4xl font-bold text-main-blue">Planos Feitos para Você</h2>
                     <p class="text-gray-600 mt-2">Escolha o plano TIM ideal e comece a navegar com a máxima velocidade.</p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card de Plano 1: TIM Controle -->
                     <div class="bg-white rounded-xl shadow-lg p-8 text-center flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 fade-in-section">
                         <div>
                             <h3 class="text-2xl font-bold text-main-blue">TIM Controle</h3>
@@ -128,8 +223,6 @@
                         </div>
                         <a href="https://wa.me/5511999998888?text=Olá!%20Tenho%20interesse%20no%20plano%20TIM%20Controle." target="_blank" class="main-blue text-white font-bold py-3 px-6 rounded-full w-full transition-colors duration-300 hover:bg-blue-800">Quero Esse!</a>
                     </div>
-
-                    <!-- Card de Plano 2: TIM Black (Destaque) -->
                     <div class="bg-gray-800 text-white rounded-xl shadow-2xl p-8 text-center flex flex-col justify-between relative transform scale-105 fade-in-section" style="transition-delay: 200ms;">
                         <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase">Mais Popular</span>
                         <div>
@@ -145,8 +238,6 @@
                         </div>
                         <a href="https://wa.me/5511999998888?text=Olá!%20Tenho%20interesse%20no%20plano%20TIM%20Black." target="_blank" class="accent-yellow font-bold py-3 px-6 rounded-full w-full transition-colors duration-300">Contratar Agora</a>
                     </div>
-
-                    <!-- Card de Plano 3: TIM Fibra -->
                     <div class="bg-white rounded-xl shadow-lg p-8 text-center flex flex-col justify-between transform hover:-translate-y-2 transition-transform duration-300 fade-in-section" style="transition-delay: 400ms;">
                         <div>
                             <h3 class="text-2xl font-bold text-main-blue">TIM Ultrafibra</h3>
@@ -164,8 +255,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- Seção de Vantagens -->
         <section id="vantagens" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 fade-in-section">
@@ -173,27 +262,18 @@
                     <p class="text-gray-600 mt-2">Mais que um plano, uma experiência completa de conexão.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-                    <!-- Vantagem 1 -->
                     <div class="fade-in-section">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                        </div>
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg></div>
                         <h3 class="text-xl font-bold mb-2">Cobertura 5G</h3>
                         <p class="text-gray-600">Navegue na rede 5G que mais cresce no Brasil, com velocidade e estabilidade incomparáveis.</p>
                     </div>
-                    <!-- Vantagem 2 -->
                     <div class="fade-in-section" style="transition-delay: 200ms;">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h6l2-2h2l-2 2z" /></svg>
-                        </div>
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h6l2-2h2l-2 2z" /></svg></div>
                         <h3 class="text-xl font-bold mb-2">Atendimento Especializado</h3>
                         <p class="text-gray-600">Conte com um consultor dedicado para tirar suas dúvidas e ajudar na escolha do plano perfeito.</p>
                     </div>
-                    <!-- Vantagem 3 -->
                     <div class="fade-in-section" style="transition-delay: 400ms;">
-                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4H5z" /></svg>
-                        </div>
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full main-blue text-white mx-auto mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4H5z" /></svg></div>
                         <h3 class="text-xl font-bold mb-2">Benefícios Exclusivos</h3>
                         <p class="text-gray-600">Aproveite apps sem descontar da internet, roaming internacional e muito mais em nossos planos.</p>
                     </div>
@@ -201,15 +281,9 @@
             </div>
         </section>
     </main>
-
-    <!-- Rodapé -->
     <footer id="contato" class="main-blue text-white pt-12 pb-8">
         <div class="container mx-auto px-6 text-center">
-            <a href="#">
-                <img src="https://iili.io/FWLZI87.jpg" 
-                     onerror="this.onerror=null; this.src='https://placehold.co/150x50/0b3d86/FFFFFF?text=TIM+Planos';"
-                     alt="Logo TIM Planos" class="h-12 w-auto bg-white rounded-md p-1 mx-auto mb-4">
-            </a>
+            <a href="#"><img src="https://iili.io/FWLZI87.jpg" onerror="this.onerror=null; this.src='https://placehold.co/150x50/0b3d86/FFFFFF?text=TIM+Planos';" alt="Logo TIM Planos" class="h-12 w-auto bg-white rounded-md p-1 mx-auto mb-4"></a>
             <h3 class="text-2xl font-bold mb-2">Pronto para se conectar?</h3>
             <p class="max-w-md mx-auto mb-6">Fale agora com um de nossos consultores pelo WhatsApp e contrate seu plano sem sair de casa.</p>
             <a href="https://wa.me/5511999998888?text=Olá!%20Gostaria%20de%20contratar%20um%20plano%20TIM." target="_blank" class="accent-yellow font-bold py-3 px-8 rounded-full text-lg transition-transform duration-300 hover:scale-105 inline-block">
@@ -222,41 +296,200 @@
         </div>
     </footer>
 
+    <!-- --- ESTRUTURA DO CHATBOT --- -->
+    <div id="chat-widget-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm1.5 0a.5.5 0 00-.5.5v6a.5.5 0 00.5.5h11a.5.5 0 00.5-.5V5.5a.5.5 0 00-.5-.5h-11z" />
+            <path d="M3 3.5a.5.5 0 01.5-.5h13a.5.5 0 010 1h-13a.5.5 0 01-.5-.5zM16 14.5a.5.5 0 01-.5.5h-13a.5.5 0 010-1h13a.5.5 0 01.5.5z" />
+            <path fill-rule="evenodd" d="M18 5v1.5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5h.5a.5.5 0 01.5.5zM2 5v1.5a.5.5 0 01-1 0V5a.5.5 0 01.5-.5H2a.5.5 0 01.5.5z" />
+        </svg>
+    </div>
+
+    <div id="chat-window" class="hidden">
+        <div class="chat-header">
+            <img src="https://iili.io/FWLZI87.jpg" alt="Logo TIM">
+            <div class="chat-header-info">
+                <h3>Assistente Virtual TIM</h3>
+                <p>Online</p>
+            </div>
+        </div>
+        <div id="chat-messages">
+            <!-- As mensagens aparecerão aqui -->
+        </div>
+        <div id="typing-indicator" class="px-4 pb-2 hidden">
+            <span class="typing-indicator">digitando...</span>
+        </div>
+        <form id="chat-form" class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Digite sua mensagem..." autocomplete="off">
+            <button type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.428A1 1 0 009.894 15V4.106A1 1 0 009 3.106l-5 1.428a1 1 0 00-.894 1.409l7 14a1 1 0 001.788 0l7-14a1 1 0 00-1.169-1.409l-5 1.428A1 1 0 0010.106 5H11a1 1 0 00.894-1.447l-7-14z" />
+                </svg>
+            </button>
+        </form>
+    </div>
+
+
     <script>
         // Script para menu mobile
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Fechar menu mobile ao clicar em um link
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
         const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
         for (let link of mobileMenuLinks) {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         }
 
         // Script para animação de fade-in ao rolar a página
         const sections = document.querySelectorAll('.fade-in-section');
-
-        const observer = new IntersectionObserver((entries, observer) => {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            rootMargin: '0px',
-            threshold: 0.1
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        // --- SCRIPT DO CHATBOT ---
+
+        // Elementos do DOM
+        const chatWidgetButton = document.getElementById('chat-widget-button');
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        // Estado da conversa
+        let conversationState = 'initial';
+
+        // Abrir/Fechar janela do chat
+        chatWidgetButton.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+            if (!chatWindow.classList.contains('hidden') && chatMessages.children.length === 0) {
+                startConversation();
+            }
         });
 
-        sections.forEach(section => {
-            observer.observe(section);
+        // Iniciar a conversa
+        function startConversation() {
+            addBotMessage("Olá! 👋 Sou o assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito. Como posso ajudar?");
+            setTimeout(() => {
+                const initialMenu = `
+                    Digite o número da opção desejada:
+                    <br><strong>1.</strong> Quero conhecer os planos
+                    <br><strong>2.</strong> Já sou cliente e preciso de ajuda
+                    <br><strong>3.</strong> Falar com um atendente humano
+                `;
+                addBotMessage(initialMenu);
+            }, 1200);
+        }
+
+        // Adicionar mensagem na tela
+        function addMessage(text, sender) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', `${sender}-message`);
+            messageElement.innerHTML = text; // Usamos innerHTML para renderizar as tags <br> e <strong>
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addBotMessage(text) {
+            typingIndicator.classList.remove('hidden');
+            setTimeout(() => {
+                typingIndicator.classList.add('hidden');
+                addMessage(text, 'bot');
+            }, 800 + Math.random() * 500); // Simula um tempo de digitação
+        }
+
+        // Lidar com o envio de mensagem pelo usuário
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userInput = chatInput.value.trim();
+            if (!userInput) return;
+
+            addMessage(userInput, 'user');
+            chatInput.value = '';
+            handleBotResponse(userInput);
         });
+
+        // Lógica de resposta do Bot
+        function handleBotResponse(userInput) {
+            const input = userInput.toLowerCase();
+
+            switch (conversationState) {
+                case 'initial':
+                    if (input.includes('1') || input.includes('plano')) {
+                        conversationState = 'selecting_plan';
+                        const planMenu = `
+                            Ótima escolha! Temos opções incríveis para você:
+                            <br><strong>A.</strong> TIM Controle (móvel)
+                            <br><strong>B.</strong> TIM Black (móvel)
+                            <br><strong>C.</strong> TIM Ultrafibra (residencial)
+                            <br>
+                            <br>Qual deles te interessa mais? (Digite A, B ou C)
+                        `;
+                        addBotMessage(planMenu);
+                    } else if (input.includes('2') || input.includes('cliente')) {
+                        addBotMessage("Entendido. Para suporte a clientes, por favor, acesse o app Meu TIM ou ligue para *144. Por aqui, só consigo ajudar com a contratação de novos planos.");
+                        setTimeout(() => startConversation(), 3000); // Reinicia
+                    } else if (input.includes('3') || input.includes('atendente')) {
+                        redirectToWhatsapp("Olá! Vim pelo site e gostaria de falar com um atendente.");
+                    } else {
+                        addBotMessage("Desculpe, não entendi. Por favor, escolha uma das opções (1, 2 ou 3).");
+                    }
+                    break;
+                
+                case 'selecting_plan':
+                    if (input === 'a') {
+                        conversationState = 'confirm_plan';
+                        addBotMessage("O <strong>TIM Controle</strong> é perfeito para quem quer ter controle total dos gastos, com redes sociais e ligações ilimitadas. Quer contratar ou saber mais?");
+                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
+                    } else if (input === 'b') {
+                        conversationState = 'confirm_plan';
+                        addBotMessage("O <strong>TIM Black</strong> é a nossa experiência definitiva, com muito mais internet, bônus para vídeos e benefícios internacionais. Quer contratar ou saber mais?");
+                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
+                    } else if (input === 'c') {
+                        conversationState = 'confirm_plan';
+                        addBotMessage("A <strong>TIM Ultrafibra</strong> é a nossa internet residencial com altíssima velocidade e estabilidade para toda a família. Quer contratar ou saber mais?");
+                        addBotMessage("Digite <strong>SIM</strong> para contratar.");
+                    } else {
+                        addBotMessage("Opção inválida. Por favor, digite A, B ou C para escolher um dos planos.");
+                    }
+                    break;
+
+                case 'confirm_plan':
+                    if (input === 'sim') {
+                        redirectToWhatsapp("Olá! Vim pelo site e quero contratar um plano TIM!");
+                    } else {
+                        conversationState = 'initial';
+                        addBotMessage("Tudo bem. Se mudar de ideia, estou por aqui! Como mais posso te ajudar?");
+                        setTimeout(() => {
+                            const initialMenu = `
+                                <strong>1.</strong> Conhecer os planos
+                                <br><strong>2.</strong> Falar com um atendente
+                            `;
+                            addBotMessage(initialMenu);
+                        }, 1200);
+                    }
+                    break;
+            }
+        }
+
+        // Função para redirecionar para o WhatsApp
+        function redirectToWhatsapp(message) {
+            const whatsappNumber = "5511999998888"; // <-- MUDE AQUI SEU NÚMERO
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            addBotMessage(`Excelente! Para garantir um atendimento personalizado e seguro, vamos finalizar no WhatsApp. <a href="${whatsappUrl}" target="_blank" class="font-bold text-blue-600 underline">Clique aqui para ser redirecionado.</a>`);
+            
+            // Abre o WhatsApp em uma nova aba
+            setTimeout(() => window.open(whatsappUrl, '_blank'), 1000);
+        }
+
     </script>
 
 </body>
