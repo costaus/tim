@@ -6,45 +6,27 @@
     <title>TIM Atendimento - Vendas</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Importa a fonte Inter do Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        /* Define a fonte padrão e um fallback */
         body {
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Estilo para a imagem de fundo do chat */
         .chat-bg {
             background-image: url('https://iili.io/FWtwY0J.jpg');
             background-position: center;
-            background-size: cover; /* Alterado para cover para preencher melhor */
+            background-size: cover;
         }
-
-        /* Estilo para a barra de rolagem no chat */
-        #chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-        #chat-messages::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-        }
-        #chat-messages::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.3);
-            border-radius: 3px;
-        }
+        #chat-messages::-webkit-scrollbar { width: 6px; }
+        #chat-messages::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        #chat-messages::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.3); border-radius: 3px; }
         
-        /* Animação de fade-in para as mensagens */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .message-fade-in {
-            animation: fadeIn 0.3s ease-out;
-        }
+        .message-fade-in { animation: fadeIn 0.3s ease-out; }
 
-        /* Estilo para o "rabicho" da bolha de mensagem */
         .message-bubble::after {
             content: "";
             position: absolute;
@@ -53,23 +35,14 @@
             height: 0;
             border: 10px solid transparent;
         }
-        .message-sent::after {
-            right: -10px;
-            border-left-color: #dcf8c6;
-        }
-        .message-received::after {
-            left: -10px;
-            border-right-color: #ffffff;
-        }
+        .message-sent::after { right: -10px; border-left-color: #dcf8c6; }
+        .message-received::after { left: -10px; border-right-color: #ffffff; }
 
-        /* Animação para o indicador de "digitando" */
         @keyframes bounce {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1.0); }
         }
-        .typing-dot {
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
+        .typing-dot { animation: bounce 1.4s infinite ease-in-out both; }
         .typing-dot:nth-child(1) { animation-delay: -0.32s; }
         .typing-dot:nth-child(2) { animation-delay: -0.16s; }
     </style>
@@ -78,7 +51,7 @@
 
     <div id="chatbot-container" class="w-screen h-screen flex flex-col bg-gray-100">
         <!-- Cabeçalho do Chat -->
-        <header class="flex items-center p-3 bg-[#005C9E] text-white shadow-md z-10">
+        <header class="flex items-center p-3 bg-[#005C9E] text-white shadow-md z-10 flex-shrink-0">
             <img src="https://iili.io/FWLZI87.jpg" alt="Logo TIM" class="w-12 h-12 rounded-full mr-4 border-2 border-white">
             <div>
                 <h1 class="text-lg font-semibold">TIM Vendas</h1>
@@ -88,233 +61,283 @@
 
         <!-- Área de Mensagens -->
         <main id="chat-messages" class="flex-1 overflow-y-auto p-4 sm:p-6 chat-bg flex flex-col space-y-4">
-            <!-- As mensagens serão inseridas aqui via JavaScript -->
+            <!-- Mensagens inseridas via JavaScript -->
         </main>
 
         <!-- Área de Sugestões/Botões Rápidos -->
-        <div id="quick-replies" class="p-2 flex flex-wrap justify-center gap-2 bg-gray-100 border-t border-gray-200">
-            <!-- Botões de resposta rápida serão inseridos aqui -->
+        <div id="quick-replies" class="p-2 flex flex-wrap justify-center gap-2 bg-gray-100 border-t border-gray-200 transition-all duration-300">
+            <!-- Botões de resposta rápida inseridos aqui -->
         </div>
 
         <!-- Rodapé com Input de Mensagem -->
-        <footer class="p-3 bg-gray-100 flex items-center border-t border-gray-200">
+        <footer class="p-3 bg-gray-100 flex items-center border-t border-gray-200 flex-shrink-0">
             <div class="flex-1">
                 <form id="message-form" class="flex items-center bg-white rounded-full shadow-sm px-4 py-2">
                     <input type="text" id="message-input" placeholder="Digite sua mensagem..." class="w-full bg-transparent border-none focus:ring-0 text-gray-700 placeholder-gray-500">
                 </form>
             </div>
-            <button id="send-button" class="ml-3 bg-[#00A859] w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md hover:bg-[#008f4b] transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <button id="send-button" class="ml-3 bg-[#00A859] w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md hover:bg-[#008f4b] transition-colors flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
         </footer>
     </div>
 
     <script>
-        // Elementos da DOM
         const chatMessages = document.getElementById('chat-messages');
         const messageForm = document.getElementById('message-form');
         const messageInput = document.getElementById('message-input');
         const sendButton = document.getElementById('send-button');
         const quickRepliesContainer = document.getElementById('quick-replies');
 
-        // --- LÓGICA DO CHATBOT ---
-
-        // Dicionário de respostas e gatilhos
-        const botResponses = {
-            greetings: {
-                triggers: ['olá', 'oi', 'bom dia', 'boa tarde', 'boa noite', 'ola'],
-                response: () => "Olá! Tudo bem? 😊 Sou seu assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito. O que você busca hoje?",
-                quickReplies: ["Quero ver os planos", "Fazer portabilidade", "Já sou cliente"]
-            },
-            show_plans: {
-                triggers: ['planos', 'opções', 'opcoes', 'internet', 'saber mais', 'mudar de plano', 'como funciona'],
-                response: () => "Ótima escolha! Temos planos incríveis para você. Para te indicar a melhor opção, me diga: o que é mais importante em um plano?",
-                quickReplies: ["Muita Internet", "Redes Sociais Ilimitadas", "Ligações", "Custo-benefício"]
-            },
-            plan_type_inquiry: {
-                triggers: ['plano controle', 'pré-pago', 'pre-pago', 'pós', 'pos'],
-                response: (trigger) => {
-                    if (trigger.includes('controle')) return "Excelente! O TIM Controle é nosso campeão de vendas. Você tem uma franquia de internet generosa, apps ilimitados e paga um valor fixo por mês. Quer ver as ofertas?";
-                    if (trigger.includes('pré') || trigger.includes('pre')) return "O TIM Pré TOP é perfeito pra quem quer flexibilidade. Você recarrega quando quiser e tem benefícios incríveis a cada recarga. Vamos ver as opções?";
-                    if (trigger.includes('pós') || trigger.includes('pos')) return "Se você busca o máximo de internet e benefícios exclusivos, o TIM Black é pra você. Temos planos com roaming internacional e assinatura de streaming. Interessado(a)?";
-                    return "Temos planos Controle, Pré-pago e Pós-pago (TIM Black). Qual deles te interessa mais?";
+        // --- NOVA LÓGICA DE FLUXO DE CONVERSA ---
+        const chatFlow = {
+            'start': {
+                message: "Olá! Tudo bem? 😊 Sou seu assistente virtual da TIM. Estou aqui para te ajudar a encontrar o plano perfeito. Como posso te ajudar hoje?",
+                replies: {
+                    "Quero ver os planos": "ask_plan_focus",
+                    "Fazer portabilidade": "portability_start",
+                    "Quero comprar um chip": "buy_chip_start"
                 },
-                quickReplies: ["TIM Controle", "TIM Pré TOP", "TIM Black"]
+                keywords: ['olá', 'oi', 'bom dia', 'boa tarde', 'boa noite', 'ola']
             },
-            portability: {
-                triggers: ['portabilidade', 'trazer meu numero'],
-                response: () => "Que legal que você quer vir pra TIM! 💙 Trazer seu número é super fácil e você ainda ganha bônus de internet. Vamos começar? Primeiro, me diga qual seu DDD e número atual para consulta.",
-                quickReplies: ["Ver planos primeiro", "Não quero informar agora"]
+            'ask_plan_focus': {
+                message: "Ótima escolha! Temos planos incríveis para você. Para te indicar a melhor opção, me diga: o que é mais importante em um plano?",
+                replies: {
+                    "Muita Internet 🚀": "recommend_black",
+                    "Redes Sociais Ilimitadas 📱": "recommend_controle",
+                    "Custo-benefício 💰": "recommend_controle_b",
+                    "Voltar": "start"
+                },
+                keywords: ['planos', 'opções', 'opcoes', 'internet', 'saber mais', 'mudar de plano', 'como funciona']
             },
-            buy_chip: {
-                triggers: ['chip', 'comprar um chip'],
-                response: () => "Para comprar um novo chip da TIM é muito simples! Você pode ir até uma de nossas lojas, bancas de jornal ou até mesmo pedir online com entrega em casa. Onde você prefere comprar?",
-                quickReplies: ["Pedir online", "Encontrar loja física"]
+            'recommend_black': {
+                message: "Perfeito! Se o seu foco é ter muita internet para navegar, jogar e assistir vídeos, o TIM Black é a escolha certa. Você tem até 100GB, apps que não gastam sua internet e assinatura de streaming inclusa. Quer ver os detalhes?",
+                replies: {
+                    "Sim, me mostre!": "show_black_details",
+                    "Ver outros planos": "ask_plan_focus",
+                    "Não, obrigado": "anything_else"
+                }
             },
-            human_attendant: {
-                triggers: ['atendente', 'falar com um atendente', 'humano'],
-                response: () => "Entendo. No momento, todo o nosso processo de venda e consulta de planos é feito por aqui, de forma 100% digital e segura. Posso garantir que consigo te ajudar com tudo que precisar! 😉 O que você gostaria de fazer?",
-                quickReplies: ["Ver planos", "Tirar uma dúvida", "Cancelar"]
+            'recommend_controle': {
+                message: "Entendi! Para quem ama redes sociais, o TIM Controle é perfeito. Você tem WhatsApp, Instagram, Facebook e X (Twitter) à vontade, sem gastar sua internet, além de uma ótima franquia para outros apps. Quer conhecer as ofertas?",
+                replies: {
+                    "Sim, quero conhecer!": "show_controle_details",
+                    "Ver outros planos": "ask_plan_focus",
+                    "Não, obrigado": "anything_else"
+                }
             },
-            cancel: {
-                triggers: ['cancelar', 'cancelamento'],
-                response: () => "Poxa, que pena que você está pensando em cancelar. 😥 Antes de seguir, gostaria de entender o motivo. Às vezes, um novo plano com mais benefícios pode resolver o que você precisa. O que acha de vermos as opções sem compromisso?",
-                quickReplies: ["Ver outros planos", "Quero cancelar mesmo"]
+            'recommend_controle_b': {
+                message: "Ótimo! O TIM Controle é o nosso campeão em custo-benefício. Você paga um valor fixo por mês e recebe um pacote completo com internet, ligações e redes sociais ilimitadas. Quer ver os valores?",
+                replies: {
+                    "Sim, por favor!": "show_controle_details",
+                    "Ver outras opções": "ask_plan_focus",
+                    "Não, obrigado": "anything_else"
+                }
             },
-            confusion: {
-                triggers: ['não entendi', 'nao entendi'],
-                response: () => "Sem problemas, eu explico de novo! Eu sou um assistente virtual da TIM e meu objetivo é te ajudar a encontrar as melhores ofertas de planos e serviços. O que você gostaria de fazer?",
-                quickReplies: ["Ver planos", "Fazer portabilidade", "Comprar Chip"]
+            'show_black_details': {
+                message: "O plano TIM Black 50GB, por exemplo, oferece: \n\n✅ 50GB de internet + Bônus\n✅ Assinatura da HBO Max inclusa\n✅ WhatsApp, Instagram e mais apps ilimitados\n✅ Ligações e SMS ilimitados para todo Brasil\n\nUm pacote super completo! O que acha?",
+                replies: {
+                    "Gostei! Quero contratar": "closing_deal",
+                    "Ver outros planos": "ask_plan_focus",
+                    "Tenho uma dúvida": "human_attendant"
+                }
             },
-            call_someone: {
-                triggers: ['ligar pra alguem', 'fazer uma ligacao'],
-                response: () => "Entendi! Para fazer ligações, você precisa de um chip ativo da TIM com um de nossos planos. Que tal conhecer as opções com ligações ilimitadas para todo o Brasil?",
-                quickReplies: ["Sim, quero ver!", "Já tenho plano"]
+             'show_controle_details': {
+                message: "O plano TIM Controle 25GB é um sucesso! Ele inclui:\n\n✅ 25GB de internet\n✅ Redes Sociais ilimitadas (não gastam sua internet)\n✅ Ligações e SMS ilimitados\n✅ Tudo isso por um preço fixo e que cabe no bolso!\n\nÉ uma ótima opção, não acha?",
+                replies: {
+                    "Adorei! Como contrato?": "closing_deal",
+                    "Ver plano TIM Black": "recommend_black",
+                    "Tenho uma dúvida": "human_attendant"
+                }
             },
-            // Respostas para os botões rápidos de planos
-            plan_focus_internet: {
-                triggers: ['muita internet'],
-                response: () => "Perfeito! Se o seu foco é internet, o TIM Black é ideal. Você tem até 100GB + bônus para navegar, redes sociais que não descontam da sua franquia e muito mais. O que acha de conhecer o plano TIM Black 50GB?",
-                quickReplies: ["Sim, me mostre!", "Ver planos Controle", "Ver todos os planos"]
+            'portability_start': {
+                message: "Que legal que você quer vir pra TIM! 💙 Trazer seu número é super fácil e você ainda ganha bônus de internet. Vamos começar? Primeiro, preciso que me informe seu DDD e número atual para consulta.",
+                replies: {
+                    "Ver planos primeiro": "ask_plan_focus",
+                    "Não quero informar agora": "portability_no_info"
+                },
+                keywords: ['portabilidade', 'trazer meu numero']
             },
-            plan_focus_social: {
-                triggers: ['redes sociais ilimitadas'],
-                response: () => "Ótimo! Nossos planos TIM Controle são perfeitos pra isso. Você tem WhatsApp, Instagram, Facebook e X (Twitter) à vontade, sem gastar sua internet. O plano TIM Controle 25GB é um sucesso. Quer saber mais sobre ele?",
-                quickReplies: ["Quero saber!", "Quais outros?", "Não, obrigado"]
+            'portability_no_info': {
+                message: "Sem problemas! Podemos ver os planos primeiro e, quando você se decidir, a gente retoma a portabilidade. O que acha?",
+                replies: {
+                    "Ok, vamos ver os planos": "ask_plan_focus",
+                    "Voltar ao início": "start"
+                }
             },
-            // Resposta padrão
-            default: {
-                response: () => "Desculpe, não entendi muito bem. Você pode tentar com outras palavras? Ou escolher uma das opções abaixo para eu te ajudar melhor.",
-                quickReplies: ["Ver planos", "Fazer portabilidade", "Falar com atendente"]
+            'buy_chip_start': {
+                message: "Para comprar um novo chip da TIM é muito simples! Você pode ir até uma de nossas lojas, bancas de jornal ou até mesmo pedir online com entrega em casa. Onde você prefere comprar?",
+                replies: {
+                    "Pedir online": "buy_chip_online",
+                    "Encontrar loja física": "buy_chip_store",
+                    "Voltar": "start"
+                },
+                keywords: ['chip', 'comprar um chip']
+            },
+            'buy_chip_online': {
+                message: "Ótimo! Para pedir online, basta acessar o site da Loja TIM. Lá você escolhe seu plano e o chip chega no seu endereço. É rápido e seguro!",
+                replies: {
+                    "Obrigado!": "anything_else",
+                    "Ver planos": "ask_plan_focus"
+                }
+            },
+            'closing_deal': {
+                message: "Maravilha! Para iniciar a contratação, vou te redirecionar para o nosso ambiente seguro de vendas. É só clicar no link e seguir os passos. Obrigado por escolher a TIM! 🚀",
+                replies: {
+                    "Ir para a contratação": "external_link", // Ação especial
+                    "Voltar": "ask_plan_focus"
+                }
+            },
+            'human_attendant': {
+                message: "Entendo. No momento, nosso atendimento é 100% digital por aqui para garantir mais agilidade. Pode me dizer qual é a sua dúvida? Tenho certeza que consigo te ajudar! 😉",
+                replies: {
+                    "Sobre os planos": "ask_plan_focus",
+                    "Sobre portabilidade": "portability_start",
+                    "É outra coisa": "open_question"
+                },
+                keywords: ['atendente', 'falar com um atendente', 'humano', 'dúvida']
+            },
+            'open_question': {
+                message: "Ok, pode digitar sua dúvida que farei o meu melhor para responder.",
+                replies: {} // Sem botões, força o usuário a digitar
+            },
+            'cancel': {
+                message: "Poxa, que pena que você está pensando em cancelar. 😥 Nossos planos são cheios de benefícios. Às vezes, uma troca de plano já resolve. Que tal darmos uma olhada nas ofertas sem compromisso?",
+                replies: {
+                    "Ver outros planos": "ask_plan_focus",
+                    "Quero cancelar mesmo": "cancel_info"
+                },
+                keywords: ['cancelar', 'cancelamento']
+            },
+            'cancel_info': {
+                message: "Entendido. Para questões de cancelamento, que envolvem dados pessoais, o ideal é ligar para o *144 do seu TIM ou 1056 de qualquer telefone. A equipe responsável poderá te ajudar com segurança.",
+                replies: {
+                    "Obrigado pela informação": "anything_else",
+                    "Voltar ao início": "start"
+                }
+            },
+            'anything_else': {
+                message: "Disponha! Posso te ajudar com mais alguma coisa?",
+                replies: {
+                    "Sim, por favor": "start",
+                    "Não, obrigado": "goodbye"
+                }
+            },
+            'goodbye': {
+                message: "Certo! Se precisar de algo mais, é só chamar. A TIM agradece seu contato! Tenha um ótimo dia! 👋",
+                replies: {}
+            },
+            'fallback': {
+                message: "Desculpe, não entendi muito bem. Que tal tentarmos por um desses caminhos?",
+                replies: {
+                    "Ver planos": "ask_plan_focus",
+                    "Fazer portabilidade": "portability_start",
+                    "Falar com atendente": "human_attendant"
+                },
+                 keywords: []
             }
         };
+        
+        // --- FUNÇÕES DO CHATBOT ---
 
-        // --- FUNÇÕES AUXILIARES ---
-
-        // Adiciona uma mensagem na tela
         function addMessage(text, sender) {
             const bubble = document.createElement('div');
             const messageClass = sender === 'user' ? 'message-sent bg-[#dcf8c6] self-end' : 'message-received bg-white self-start';
-            
             bubble.className = `message-bubble relative max-w-xs lg:max-w-md p-3 rounded-lg shadow message-fade-in ${messageClass}`;
-            bubble.textContent = text;
-            
+            bubble.innerHTML = text.replace(/\n/g, '<br>'); // Suporta quebra de linha
             chatMessages.appendChild(bubble);
             scrollToBottom();
         }
 
-        // Adiciona o indicador de "digitando"
         function showTypingIndicator() {
             const typingBubble = document.createElement('div');
             typingBubble.id = 'typing-indicator';
             typingBubble.className = 'message-received bg-white self-start p-3 rounded-lg shadow flex items-center space-x-1';
-            typingBubble.innerHTML = `
-                <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-                <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-                <div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>
-            `;
+            typingBubble.innerHTML = `<div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div><div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div><div class="typing-dot w-2 h-2 bg-gray-400 rounded-full"></div>`;
             chatMessages.appendChild(typingBubble);
             scrollToBottom();
         }
 
-        // Remove o indicador de "digitando"
         function hideTypingIndicator() {
-            const indicator = document.getElementById('typing-indicator');
-            if (indicator) {
-                indicator.remove();
-            }
+            document.getElementById('typing-indicator')?.remove();
         }
 
-        // Rola o chat para a última mensagem
         function scrollToBottom() {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Gera e exibe os botões de resposta rápida
         function showQuickReplies(replies) {
             quickRepliesContainer.innerHTML = '';
-            if (!replies || replies.length === 0) {
-                quickRepliesContainer.classList.add('hidden');
+            if (!replies || Object.keys(replies).length === 0) {
+                quickRepliesContainer.classList.add('!p-0'); // Esconde o padding se não tiver botões
                 return;
-            };
+            }
+            quickRepliesContainer.classList.remove('!p-0');
 
-            quickRepliesContainer.classList.remove('hidden');
-            replies.forEach(replyText => {
+            for (const text in replies) {
                 const button = document.createElement('button');
-                button.textContent = replyText;
+                button.innerHTML = text; // Usando innerHTML para renderizar emojis
                 button.className = "bg-white border border-[#00A859] text-[#00A859] px-4 py-2 rounded-full text-sm font-medium hover:bg-[#e6f7ef] transition-colors";
-                button.onclick = () => handleQuickReply(replyText);
+                button.dataset.next = replies[text];
+                button.onclick = () => handleQuickReplyClick(button.dataset.next, text);
                 quickRepliesContainer.appendChild(button);
-            });
-        }
-        
-        // Lida com o clique em uma resposta rápida
-        function handleQuickReply(text) {
-             addMessage(text, 'user');
-             messageInput.value = '';
-             messageInput.focus();
-             quickRepliesContainer.innerHTML = ''; // Limpa os botões
-             quickRepliesContainer.classList.add('hidden');
-             getBotResponse(text);
+            }
         }
 
-        // Encontra a resposta do bot baseada na entrada do usuário
-        function getBotResponse(userInput) {
-            const lowerCaseInput = userInput.toLowerCase().trim();
-            let responseKey = 'default'; // Resposta padrão
-
-            for (const key in botResponses) {
-                if (botResponses[key].triggers && botResponses[key].triggers.some(trigger => lowerCaseInput.includes(trigger))) {
-                    responseKey = key;
-                    break;
-                }
+        function handleQuickReplyClick(nextNodeKey, text) {
+            if (nextNodeKey === 'external_link') {
+                // Ação especial para links externos
+                window.open('https://www.tim.com.br/', '_blank');
+                addMessage("Estou te redirecionando. Se a nova página não abrir, por favor, clique aqui: <a href='https://www.tim.com.br/' target='_blank' class='text-blue-600 underline'>Loja TIM</a>", 'bot');
+                return;
             }
 
-            const responseData = botResponses[responseKey];
-            const responseText = typeof responseData.response === 'function' ? responseData.response(lowerCaseInput) : responseData.response;
-
+            addMessage(text, 'user');
+            quickRepliesContainer.innerHTML = '';
+            quickRepliesContainer.classList.add('!p-0');
+            
+            renderNode(nextNodeKey);
+        }
+        
+        function renderNode(nodeKey) {
+            const node = chatFlow[nodeKey] || chatFlow['fallback'];
+            
             showTypingIndicator();
-
-            // Simula um tempo de digitação do atendente
             setTimeout(() => {
                 hideTypingIndicator();
-                addMessage(responseText, 'bot');
-                showQuickReplies(responseData.quickReplies);
-            }, 1000 + Math.random() * 500); // Adiciona um pequeno atraso aleatório
+                addMessage(node.message, 'bot');
+                showQuickReplies(node.replies);
+            }, 1000 + Math.random() * 500);
         }
 
-        // --- MANIPULADORES DE EVENTOS ---
-
-        // Envia a mensagem do usuário
         function handleUserMessage(event) {
             event.preventDefault();
             const userInput = messageInput.value.trim();
-            if (userInput) {
-                addMessage(userInput, 'user');
-                messageInput.value = '';
-                messageInput.focus();
-                quickRepliesContainer.innerHTML = ''; // Limpa os botões
-                quickRepliesContainer.classList.add('hidden');
-                getBotResponse(userInput);
+            if (!userInput) return;
+
+            addMessage(userInput, 'user');
+            messageInput.value = '';
+            quickRepliesContainer.innerHTML = '';
+            quickRepliesContainer.classList.add('!p-0');
+            
+            const lowerCaseInput = userInput.toLowerCase();
+            let matchedNodeKey = 'fallback';
+
+            // Procura por uma correspondência de palavra-chave
+            for (const key in chatFlow) {
+                if (chatFlow[key].keywords?.some(kw => lowerCaseInput.includes(kw))) {
+                    matchedNodeKey = key;
+                    break;
+                }
             }
+            
+            renderNode(matchedNodeKey);
         }
 
         messageForm.addEventListener('submit', handleUserMessage);
         sendButton.addEventListener('click', handleUserMessage);
 
-        // --- INICIALIZAÇÃO DO CHAT ---
-        function startChat() {
-            const initialResponse = botResponses.greetings;
-            showTypingIndicator();
-            setTimeout(() => {
-                hideTypingIndicator();
-                addMessage(initialResponse.response(), 'bot');
-                showQuickReplies(initialResponse.quickReplies);
-            }, 1500);
-        }
-
-        // Inicia o chat quando a página carregar
-        window.onload = startChat;
+        window.onload = () => renderNode('start');
 
     </script>
 </body>
